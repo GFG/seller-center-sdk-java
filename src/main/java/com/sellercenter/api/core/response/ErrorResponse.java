@@ -2,6 +2,10 @@ package com.sellercenter.api.core.response;
 
 import java.util.Map;
 
+/**
+ * See https://sellercenter.readme.io/docs/errors for more information
+ * about different errors.
+ */
 public class ErrorResponse extends AbstractResponse {
 
     private String errorType;
@@ -14,14 +18,15 @@ public class ErrorResponse extends AbstractResponse {
      * @param errorType type of the error
      * @param errorCode integer referencing the error
      * @param errorMessage more information about error
+     * @param body
      */
     public ErrorResponse(
             String requestAction,
             String errorType,
             String errorCode,
-            String errorMessage
-    ) {
-        super(requestAction, null);
+            String errorMessage,
+            Map<String, Object> body) {
+        super(requestAction, body);
 
         this.errorType = errorType;
         this.errorCode = Integer.parseInt(errorCode);
@@ -37,8 +42,6 @@ public class ErrorResponse extends AbstractResponse {
 
     /**
      * Simple getter for the error message.
-     * See https://sellercenter.readme.io/docs/errors for more information
-     * about different error messages
      *
      * @return Error messages
      */
@@ -48,8 +51,6 @@ public class ErrorResponse extends AbstractResponse {
 
     /**
      * Simple getter for the error code.
-     * See https://sellercenter.readme.io/docs/errors for more information
-     * about different error codes
      *
      * @return Error code
      */
@@ -59,8 +60,6 @@ public class ErrorResponse extends AbstractResponse {
 
     /**
      * Simple getter for the error type.
-     * See https://sellercenter.readme.io/docs/errors for more information
-     * about different error types
      *
      * @return Error type
      */

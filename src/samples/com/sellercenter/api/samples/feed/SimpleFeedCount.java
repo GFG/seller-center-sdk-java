@@ -1,6 +1,7 @@
 package com.sellercenter.api.samples.feed;
 
 import com.sellercenter.api.Config;
+import com.sellercenter.api.SellerCenter;
 import com.sellercenter.api.core.response.ErrorResponse;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.exceptions.SdkException;
@@ -18,6 +19,10 @@ public class SimpleFeedCount {
 
     public static void main(String[] args) throws Exception {
 
+        SellerCenter.ApiKey = "11bbf504d7bb6a5e9c30baa9f0908e3b9ee5f514";
+        SellerCenter.UserId = "remy.rey@rocket-internet.com";
+        SellerCenter.Url = "https://rocket:rock4me@sellercenter-api-lazada-th.sellercenter.net/";
+
         /**
          * Create a request
          */
@@ -25,17 +30,17 @@ public class SimpleFeedCount {
         Map<String, Object> body = new HashMap<String, Object>();
 
         params.put("Action", "FeedCount");
-        params.put("UserID", Config.DEFAULT_UserID);
-        params.put("Version", Config.DEFAULT_Version);
+        params.put("UserID", SellerCenter.UserId);
+        params.put("Version", Config.VERSION);
 
-        Request get = new Get(body, params, Config.DEFAULT_ApiKey);
+        Request get = new Get(params, SellerCenter.ApiKey);
 
         /**
          * Call the API
          */
         Response res;
         try {
-            res = Client.call(get, Config.MASTER_URL);
+            res = Client.call(get, SellerCenter.Url);
         } catch (ApiException e) {
             throw new Exception("Error : " + e.getMessage());
         } catch (SdkException e) {
@@ -43,7 +48,7 @@ public class SimpleFeedCount {
         }
 
         /**
-         * Print the response
+         * Pretty print the response
          */
         if (res.isError()) {
             ErrorResponse err = (ErrorResponse) res;

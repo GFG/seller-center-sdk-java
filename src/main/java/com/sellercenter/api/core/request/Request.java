@@ -3,17 +3,22 @@ package com.sellercenter.api.core.request;
 import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Request implements com.sellercenter.api.core.Request {
 
-    private final static String defaultFormat = "JSON";
+    private final static String SDK_FORMAT = "JSON";
     private Map<String, Object> body;
     private Map<String,String> params;
     private SignatureProvider signatureProvider;
-    private TimestampFormatter time;
+    protected TimestampFormatter time;
 
     /**
+     * Construct a request.
+     * Parameters :
+     *  'Format' and 'Signature' must not be provided.
+     *  'Timestamp' may be omitted.
      *
      * @param body Map representing the body of the request
      * @param params Map representing the query of the request
@@ -31,7 +36,7 @@ public abstract class Request implements com.sellercenter.api.core.Request {
         this.signatureProvider = signatureProvider;
         this.time = time;
 
-        this.params.put("Format", defaultFormat);
+        this.params.put("Format", SDK_FORMAT);
         if (null == this.params.get("Timestamp")) {
             updateTimestamp(null);
         }
@@ -50,6 +55,23 @@ public abstract class Request implements com.sellercenter.api.core.Request {
                 new HashHmacSignatureProvider(secretKey),
                 new TimestampFormatter()
         );
+    }
+
+    /**
+     *
+     * @param body
+     * @param userId The ID of the user making the call.
+     * @param secretKey the API key of the user specified in the UserID parameter.
+     * @param version The API version against which this call is to be executed, in major-dot-minor format.
+     */
+    public Request(Map<String, Object> body, String userId, String secretKey, String version) {
+        this(
+                body,
+                new HashMap<String, String>(),
+                secretKey
+        );
+        this.addParam("UserID", userId);
+        this.addParam("Version", version);
     }
 
     /**
@@ -91,5 +113,22 @@ public abstract class Request implements com.sellercenter.api.core.Request {
         params.remove("Signature");
         String signature = signatureProvider.sign(params);
         params.put("Signature", signature);
+    }
+
+    /**
+     * Add a parameter to the request
+     * @param key
+     * @param value
+     */
+    protected void addParam(String key, String value) {
+        this.params.put(key, value);
+    }
+
+    /**
+     * Add multiple parameters to the request
+     * @param opt
+     */
+    public void addOptions(Map<String, String> opt) {
+        this.params.putAll(opt);
     }
 }

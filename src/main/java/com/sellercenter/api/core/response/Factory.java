@@ -51,13 +51,14 @@ public class Factory {
      */
     private static Response errorFromJsonObject(JsonObject response) {
         JsonObject head = response.getJsonObject("Head");
+        Map<String, Object> body = retrieveBody(response);
 
         return new ErrorResponse(
                 head.getString("RequestAction"),
                 head.getString("ErrorType"),
                 head.getString("ErrorCode"),
-                head.getString("ErrorMessage")
-        );
+                head.getString("ErrorMessage"),
+                body);
     }
 
     /**

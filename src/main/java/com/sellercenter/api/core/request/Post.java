@@ -17,14 +17,13 @@ public class Post extends Request {
     }
 
     /**
-     * {@inheritDoc}
+     * @param body
+     * @param userId The ID of the user making the call.
+     * @param secretKey the API key of the user specified in the UserID parameter.
+     * @param version The API version against which this call is to be executed, in major-dot-minor format.
      */
-    public Post(
-            Map<String, Object> body,
-            Map<String, String> params,
-            String secretKey
-    ) {
-        super(body, params, secretKey);
+    public Post(Map<String, Object> body, String userId, String secretKey, String version) {
+        super(body, userId, secretKey, version);
     }
 
     /**

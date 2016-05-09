@@ -19,7 +19,6 @@ public class TimestampFormatter {
         final TimeZone tz = TimeZone.getTimeZone("UTC");
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
         df.setTimeZone(tz);
-        final String nowAsISO = df.format(now);
-        return nowAsISO;
+        return df.format(now);
     }
 }
