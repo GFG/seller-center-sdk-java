@@ -42,6 +42,7 @@ public class HashHmacSignatureProvider implements SignatureProvider {
                         + "&";
             }
             concat = concat.substring(0, concat.length()-1);
+            concat = concat.replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             throw new SdkException("Error while encoding parameters : " + e.getMessage());
         }

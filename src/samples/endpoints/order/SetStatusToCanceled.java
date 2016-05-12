@@ -18,7 +18,7 @@ public class SetStatusToCanceled {
         /**
          * Perform the API call
          */
-        SetStatusToCanceledResponse res = Orders.setStatusToCanceled(22475, "Changed%20mind", "reasondetail");
+        SetStatusToCanceledResponse res = Orders.setStatusToCanceled(22475, "Changed Mind", "reasondetail");
 
         /**
          * Pretty print the response
