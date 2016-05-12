@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class SetStatusToCanceledRequestTest extends TestCase {
 
     public void testParams() throws SdkException {
-        SetStatusToCanceledRequest req = new SetStatusToCanceledRequest("userId", "key", "version", "3", "reason", "detail");
+        SetStatusToCanceledRequest req = new SetStatusToCanceledRequest("userId", "key", "version", 3, "reason", "detail");
         Map<String, String> params =  req.getParams();
 
         Assert.assertEquals("SetStatusToCanceled", params.get("Action"));

@@ -1,5 +1,6 @@
 package com.sellercenter.api.core.response;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,5 +40,14 @@ public abstract class AbstractModel {
      */
     protected float getFloat(String key) {
         return Float.parseFloat((String) data.get(key));
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    protected Date getDate(String key) {
+        return new Date(getString(key));
     }
 }

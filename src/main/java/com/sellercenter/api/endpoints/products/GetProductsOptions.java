@@ -1,6 +1,7 @@
 package com.sellercenter.api.endpoints.products;
 
 import com.sellercenter.api.core.request.TimestampFormatter;
+import com.sellercenter.api.core.utils.Helper;
 
 import java.util.*;
 
@@ -116,6 +117,17 @@ public class GetProductsOptions {
     }
 
     /**
+     * Limits to products whose SKU are added
+     *
+     * @param sku one of the searched sku
+     * @return the calling instance for chaining.
+     */
+    public GetProductsOptions addSku(String sku) {
+        this.skuList.add(sku);
+        return this;
+    }
+
+    /**
      * Limits the returned product list to those updated after or on a specified date
      *
      * @param updatedAfter the specified date
@@ -168,12 +180,7 @@ public class GetProductsOptions {
             map.put("Filter", filter);
         }
         if (!skuList.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (String sku : skuList) {
-                sb.append(sku).append(",");
-            }
-            sb.deleteCharAt(sb.length()-1);
-            map.put("SkuList", sb.toString());
+            map.put("SkuSellerList", Helper.toParam(skuList));
         }
         if (offset != DEFAULT_OFFSET) {
             map.put("Offset", Integer.toString(offset));

@@ -34,11 +34,11 @@ public class Get extends Request {
     /**
      *
      * @param userId The ID of the user making the call.
-     * @param secretKey the API key of the user specified in the UserID parameter.
+     * @param apiKey the API key of the user specified in the UserID parameter.
      * @param version The API version against which this call is to be executed, in major-dot-minor format.
      */
-    public Get(String userId, String secretKey, String version) {
-        super(new HashMap<String, Object>(), userId, secretKey, version);
+    public Get(String userId, String apiKey, String version) {
+        super(new HashMap<String, Object>(), userId, apiKey, version);
     }
 
     /**

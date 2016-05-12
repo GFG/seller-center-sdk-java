@@ -1,6 +1,7 @@
-package com.sellercenter.api.models;
+package com.sellercenter.api.models.Order;
 
 import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.models.Address;
 
 import java.util.Map;
 

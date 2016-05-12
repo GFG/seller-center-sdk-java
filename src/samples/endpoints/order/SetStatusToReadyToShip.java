@@ -2,10 +2,13 @@ package endpoints.order;
 
 import com.sellercenter.api.SellerCenter;
 import com.sellercenter.api.endpoints.Orders;
-import com.sellercenter.api.endpoints.orders.GetOrderResponse;
-import com.sellercenter.api.models.Order.Order;
+import com.sellercenter.api.endpoints.orders.SetStatusToReadyToShipResponse;
 
-public class GetOrder {
+import java.util.LinkedList;
+import java.util.List;
+
+public class SetStatusToReadyToShip {
+
     public static void main(String[] args)
             throws Exception {
 
@@ -19,7 +22,10 @@ public class GetOrder {
         /**
          * Perform the API call
          */
-        GetOrderResponse res = Orders.getOrder(39342);
+        List<Integer> list = new LinkedList<Integer>();
+        list.add(17340);
+        list.add(17341);
+        SetStatusToReadyToShipResponse res = Orders.setStatusToReadyToShip(list, "pickup", "", 123456789);
 
         /**
          * Pretty print the response
@@ -27,12 +33,5 @@ public class GetOrder {
         System.out.println("Success :");
         System.out.println(">   " + res.getResponseType());
         System.out.println(">   " + res.getTimestamp());
-
-        Order order = res.getOrder();
-        System.out.println();
-        System.out.println("Order :");
-        System.out.println("|   id    : " + order.getOrderId());
-        System.out.println("|   price : " + order.getPrice());
-        System.out.println("|   items : " + order.getItemsCount());
     }
 }

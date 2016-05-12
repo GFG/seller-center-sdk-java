@@ -1,5 +1,6 @@
 package com.sellercenter.api.endpoints.products;
 
+import com.sellercenter.api.core.response.ConcreteResponse;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.models.Product.Product;
 
@@ -7,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class GetProductsResponse extends SuccessResponse{
+public class GetProductsResponse extends ConcreteResponse {
 
     private final List<Product> products = new LinkedList<Product>();
 
@@ -17,7 +18,7 @@ public class GetProductsResponse extends SuccessResponse{
      * @param response the successful response returned by the client
      */
     public GetProductsResponse(SuccessResponse response) {
-        super(response.getRequestAction(), response.getResponseType(), response.getTimestamp(), response.getBody());
+        super(response);
         Object product = ((Map<String, Object>) getBody().get("Products")).get("Product");
 
         if (product instanceof List) {

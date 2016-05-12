@@ -12,7 +12,7 @@ public class SetStatusToCanceledRequest extends Post{
      * @param userId The ID of the user making the call.
      * @param apiKey the API key of the user specified in the UserID parameter.
      * @param version The API version against which this call is to be executed, in major-dot-minor format.
-     * @param orderId The order identifier that was assigned to the order by SellerCenter.
+     * @param orderItemId The order identifier that was assigned to the order by SellerCenter.
      * @param reason
      * @param reasonDetail
      */
@@ -20,13 +20,13 @@ public class SetStatusToCanceledRequest extends Post{
             String userId,
             String apiKey,
             String version,
-            String orderId,
+            int orderItemId,
             String reason,
             String reasonDetail
     ) {
         super(new HashMap<String, Object>(), userId, apiKey, version);
         this.addParam("Action", "SetStatusToCanceled");
-        this.addParam("OrderId", orderId);
+        this.addParam("OrderItemId", Integer.toString(orderItemId));
         this.addParam("Reason", reason);
         this.addParam("ReasonDetail", reasonDetail);
     }

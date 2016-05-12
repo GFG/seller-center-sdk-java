@@ -2,10 +2,10 @@ package endpoints.order;
 
 import com.sellercenter.api.SellerCenter;
 import com.sellercenter.api.endpoints.Orders;
-import com.sellercenter.api.endpoints.orders.GetOrderResponse;
-import com.sellercenter.api.models.Order.Order;
+import com.sellercenter.api.endpoints.orders.GetOrderItemsResponse;
+import com.sellercenter.api.models.Order.OrderItem;
 
-public class GetOrder {
+public class GetOrderItems {
     public static void main(String[] args)
             throws Exception {
 
@@ -19,7 +19,7 @@ public class GetOrder {
         /**
          * Perform the API call
          */
-        GetOrderResponse res = Orders.getOrder(39342);
+        GetOrderItemsResponse res = Orders.getOrderItems(22463);
 
         /**
          * Pretty print the response
@@ -28,11 +28,15 @@ public class GetOrder {
         System.out.println(">   " + res.getResponseType());
         System.out.println(">   " + res.getTimestamp());
 
-        Order order = res.getOrder();
         System.out.println();
-        System.out.println("Order :");
-        System.out.println("|   id    : " + order.getOrderId());
-        System.out.println("|   price : " + order.getPrice());
-        System.out.println("|   items : " + order.getItemsCount());
+        System.out.println("Order Items :");
+        System.out.println();
+        for (OrderItem item : res.getItemList()) {
+            System.out.println("    Item:");
+            System.out.println("    |   Id:     " + item.getOrderItemId());
+            System.out.println("    |   Name:   " + item.getName());
+            System.out.println("    |   Status: " + item.getStatus());
+            System.out.println();
+        }
     }
 }

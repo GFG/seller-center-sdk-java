@@ -2,6 +2,9 @@ package com.sellercenter.api.core.request;
 
 import com.sellercenter.api.exceptions.SdkException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,13 +49,13 @@ public abstract class Request implements com.sellercenter.api.core.Request {
      *
      * @param body Map representing the body of the request
      * @param params Map representing the query of the request
-     * @param secretKey The API key to sign the request
+     * @param apiKey The API key to sign the request
      */
-    public Request(Map<String, Object> body, Map<String, String> params, String secretKey) {
+    public Request(Map<String, Object> body, Map<String, String> params, String apiKey) {
         this(
                 body,
                 params,
-                new HashHmacSignatureProvider(secretKey),
+                new HashHmacSignatureProvider(apiKey),
                 new TimestampFormatter()
         );
     }
@@ -61,14 +64,14 @@ public abstract class Request implements com.sellercenter.api.core.Request {
      *
      * @param body
      * @param userId The ID of the user making the call.
-     * @param secretKey the API key of the user specified in the UserID parameter.
+     * @param apiKey the API key of the user specified in the UserID parameter.
      * @param version The API version against which this call is to be executed, in major-dot-minor format.
      */
-    public Request(Map<String, Object> body, String userId, String secretKey, String version) {
+    public Request(Map<String, Object> body, String userId, String apiKey, String version) {
         this(
                 body,
                 new HashMap<String, String>(),
-                secretKey
+                apiKey
         );
         this.addParam("UserID", userId);
         this.addParam("Version", version);

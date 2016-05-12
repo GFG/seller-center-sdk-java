@@ -14,8 +14,9 @@ public class GetProductsRequestTest extends TestCase {
 
     public void testParamsWithOpt() throws SdkException {
         LinkedList<String> skuList = new LinkedList<String>();
-        skuList.add("1");
-        skuList.add("2");
+        skuList.add("hello");
+        skuList.add("world");
+        skuList.add("!!!");
 
         GetProductsOptions otp = (new GetProductsOptions())
                 .setCreatedAfter(new Date())
@@ -33,7 +34,7 @@ public class GetProductsRequestTest extends TestCase {
         Assert.assertEquals("filter", params.get("Filter"));
         Assert.assertEquals("3", params.get("Offset"));
         Assert.assertEquals("5", params.get("Limit"));
-        Assert.assertEquals("1,2", params.get("SkuList"));
+        Assert.assertEquals("[\"hello\",\"world\",\"!!!\"]", params.get("SkuSellerList"));
         Assert.assertEquals("search", params.get("Search"));
         Assert.assertEquals("1", params.get("GlobalIdentifier"));
 

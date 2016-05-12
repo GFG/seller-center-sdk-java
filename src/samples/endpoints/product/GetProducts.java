@@ -6,7 +6,9 @@ import com.sellercenter.api.endpoints.products.GetProductsOptions;
 import com.sellercenter.api.endpoints.products.GetProductsResponse;
 import com.sellercenter.api.models.Product.Product;
 
-public class GetProduct {
+import java.util.LinkedList;
+
+public class GetProducts {
 
     public static void main(String[] args)
             throws Exception {
@@ -22,7 +24,7 @@ public class GetProduct {
          * Call the API
          */
         GetProductsOptions opt = new GetProductsOptions();
-        opt.setLimit(2);
+        opt.setLimit(2).addSku("7878");
         GetProductsResponse res = Products.getProducts(opt);
 
         /**
