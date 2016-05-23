@@ -2,84 +2,98 @@ package com.sellercenter.api.core.request;
 
 import com.sellercenter.api.exceptions.SdkException;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Request implements com.sellercenter.api.core.Request {
+public final class Request implements com.sellercenter.api.core.Request {
 
     private final static String SDK_FORMAT = "JSON";
     private Map<String, Object> body;
     private Map<String,String> params;
     private SignatureProvider signatureProvider;
-    protected TimestampFormatter time;
+    private Method method;
+    private TimestampFormatter time;
 
     /**
-     * Construct a request.
-     * Parameters :
-     *  'Format' and 'Signature' must not be provided.
-     *  'Timestamp' may be omitted.
      *
-     * @param body Map representing the body of the request
-     * @param params Map representing the query of the request
-     * @param signatureProvider Tool to compute signature
-     * @param time Tool to format the date
+     * @param action Name of the function that is to be called
+     * @param userId ID of the user making the call.
+     * @param apiKey API key of the user specified in the UserID parameter.
+     * @param version API version against which this call is to be executed, in major-dot-minor format.
      */
     public Request(
-            Map<String, Object> body,
-            Map<String, String> params,
-            SignatureProvider signatureProvider,
-            TimestampFormatter time
+        String action,
+        String userId,
+        String apiKey,
+        String version
     ) {
-        this.body = body;
-        this.params = params;
-        this.signatureProvider = signatureProvider;
-        this.time = time;
+        this.signatureProvider = new HashHmacSignatureProvider(apiKey);
+        this.time = new TimestampFormatter();
 
+        this.method = Method.GET;
+
+        this.params = new HashMap<String, String>();
+        this.params.put("Version", version);
+        this.params.put("UserID", userId);
         this.params.put("Format", SDK_FORMAT);
-        if (null == this.params.get("Timestamp")) {
-            updateTimestamp(null);
-        }
+        this.params.put("Action", action);
+        updateTimestamp(new Date());
+
     }
 
     /**
      *
-     * @param body Map representing the body of the request
-     * @param params Map representing the query of the request
-     * @param apiKey The API key to sign the request
+     * @param action Name of the function that is to be called
+     * @param userId ID of the user making the call.
+     * @param apiKey API key of the user specified in the UserID parameter.
+     * @param version API version against which this call is to be executed, in major-dot-minor format.
+     * @param params Optional parameters
      */
-    public Request(Map<String, Object> body, Map<String, String> params, String apiKey) {
-        this(
-                body,
-                params,
-                new HashHmacSignatureProvider(apiKey),
-                new TimestampFormatter()
-        );
+    public Request(
+            String action,
+            String userId,
+            String apiKey,
+            String version,
+            Map<String, String> params
+    ) {
+        this(action, userId, apiKey, version);
+        this.params.putAll(params);
     }
 
     /**
      *
-     * @param body
-     * @param userId The ID of the user making the call.
-     * @param apiKey the API key of the user specified in the UserID parameter.
-     * @param version The API version against which this call is to be executed, in major-dot-minor format.
+     * @param action Name of the function that is to be called
+     * @param userId ID of the user making the call.
+     * @param apiKey API key of the user specified in the UserID parameter.
+     * @param version API version against which this call is to be executed, in major-dot-minor format.
+     * @param params Optional parameters
+     * @param body Body of the request
      */
-    public Request(Map<String, Object> body, String userId, String apiKey, String version) {
-        this(
-                body,
-                new HashMap<String, String>(),
-                apiKey
-        );
-        this.addParam("UserID", userId);
-        this.addParam("Version", version);
+    public Request(
+            String action,
+            String userId,
+            String apiKey,
+            String version,
+            Map<String, String> params,
+            Map<String, Object> body
+    ) {
+        this(action, apiKey, userId, version, params);
+        this.method = Method.POST;
+        this.body = body;
+    }
+
+    /**
+     *
+     * @return http method
+     */
+    public Method getMethod() {
+        return this.method;
     }
 
     /**
      * Returns the body of a the request
-     * @return Map of the body, as passed to the constructor
+     * @return Map of the body, as passed to the constructor if POST request, null if GET request
      */
     public Map<String, Object> getBody() {
         return body;
@@ -101,7 +115,7 @@ public abstract class Request implements com.sellercenter.api.core.Request {
      *
      * @param now The new date, if null given will be now.
      */
-    public void updateTimestamp(Date now) {
+    private void updateTimestamp(Date now) {
         String date = time.getTimestamp(now);
         params.put("Timestamp", date);
     }
@@ -116,22 +130,5 @@ public abstract class Request implements com.sellercenter.api.core.Request {
         params.remove("Signature");
         String signature = signatureProvider.sign(params);
         params.put("Signature", signature);
-    }
-
-    /**
-     * Add a parameter to the request
-     * @param key
-     * @param value
-     */
-    protected void addParam(String key, String value) {
-        this.params.put(key, value);
-    }
-
-    /**
-     * Add multiple parameters to the request
-     * @param opt
-     */
-    public void addOptions(Map<String, String> opt) {
-        this.params.putAll(opt);
     }
 }

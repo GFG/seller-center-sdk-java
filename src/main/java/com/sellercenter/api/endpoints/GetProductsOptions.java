@@ -1,11 +1,11 @@
-package com.sellercenter.api.endpoints.products;
+package com.sellercenter.api.endpoints;
 
 import com.sellercenter.api.core.request.TimestampFormatter;
 import com.sellercenter.api.core.utils.Helper;
 
 import java.util.*;
 
-public class GetProductsOptions {
+public final class GetProductsOptions {
     private static final int DEFAULT_OFFSET = 0;
     private static final int DEFAULT_LIMIT = 1000;
 

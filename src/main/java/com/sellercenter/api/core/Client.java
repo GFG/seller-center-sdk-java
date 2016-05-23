@@ -2,12 +2,12 @@ package com.sellercenter.api.core;
 
 import com.jcabi.http.request.ApacheRequest;
 import com.jcabi.http.response.JsonResponse;
-import com.sellercenter.api.Config;
-import com.sellercenter.api.SellerCenter;
+import com.sellercenter.api.core.request.Method;
 import com.sellercenter.api.core.response.ErrorResponse;
 import com.sellercenter.api.core.response.Factory;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.core.utils.FormatAdapter;
+import com.sellercenter.api.endpoints.SellerCenter;
 import com.sellercenter.api.exceptions.*;
 
 import java.io.IOException;
@@ -27,8 +27,7 @@ public class Client {
      */
     public static SuccessResponse call(Request request)
             throws SdkException, ApiException, RateLimitException, AuthenticationException, InvalidRequestException, ResourceNotFoundException {
-        String url = (SellerCenter.Url == null) ? Config.URL : SellerCenter.Url;
-        return call(request, url);
+        return call(request, SellerCenter.url);
     }
 
     /**
@@ -53,11 +52,14 @@ public class Client {
 
                     .uri()
                     .queryParams(request.getParams())
-                    .back()
-
-                    .body()
-                    .set(FormatAdapter.toXML(request.getBody(), "Request"))
                     .back();
+
+            if (request.getMethod() ==  Method.POST) {
+                requestToSend
+                        .body()
+                        .set(FormatAdapter.toXML(request.getBody(), "Request"))
+                        .back();
+            }
 
             response = requestToSend.fetch()
 
@@ -156,12 +158,12 @@ public class Client {
      * @return  String  A method name compliant with jcabi http client
      * @throws  SdkException when method is invalid
      */
-    private static String translateMethod(String method) throws SdkException {
-        if (method.equals(Request.GET)) {
+    private static String translateMethod(Method method) throws SdkException {
+        if (method == Method.GET) {
             return com.jcabi.http.Request.GET;
         }
 
-        if (method.equals(Request.POST)) {
+        if (method == Method.POST) {
             return com.jcabi.http.Request.POST;
         }
 

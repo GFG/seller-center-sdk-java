@@ -4,7 +4,7 @@ import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.Map;
 
-public interface SignatureProvider {
+interface SignatureProvider {
 
     /**
      * Sign a request by it's parameters

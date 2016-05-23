@@ -15,7 +15,7 @@ public interface Response {
      * Simple getter for request action
      * @return the request action
      */
-    public String getRequestAction();
+    String getRequestAction();
 
     /**
      * Get the body of the response, in a JSON like representation,

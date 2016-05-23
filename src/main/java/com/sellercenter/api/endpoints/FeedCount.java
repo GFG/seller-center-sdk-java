@@ -1,13 +1,12 @@
-package com.sellercenter.api.models.Feed;
+package com.sellercenter.api.endpoints;
 
-import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.core.response.SuccessResponse;
 
-import java.util.Map;
+public final class FeedCount extends AbstractModel {
 
-public class FeedCount extends AbstractModel {
-
-    public FeedCount(Map<String, Object> data) {
-        super(data);
+    FeedCount(SuccessResponse response) {
+        super(response);
+        this.data = response.getObjectFromBody("FeedCount");
     }
 
     public int getFinished () {

@@ -1,6 +1,6 @@
-package com.sellercenter.api.models.Product;
+package com.sellercenter.api.endpoints;
 
-import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.core.response.SuccessResponse;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
  * Model for Product
  * Provide getters and setters to all mandatory attributes
  */
-public class Product extends AbstractModel {
+public final class Product extends AbstractModel {
 
     /*
     private String SellerSku;
@@ -30,7 +30,7 @@ public class Product extends AbstractModel {
     private String SaleEndDate;
     private String Status;
     private String ProductId;
-    private String Url;
+    private String url;
     private String MainImage;
     private List<String> Images;
     private String PrimaryCategory;
@@ -38,10 +38,10 @@ public class Product extends AbstractModel {
     private ProductData ProductData;
     */
 
-    public Product(Map<String, Object> data) {
-        super(data);
+    public Product(SuccessResponse response, Map<String, Object> data) {
+        super(response);
+        this.data = data;
 
-        // handle weird json from server
         Object images = ((Map) data.get("Images")).get("Image");
         if (images instanceof List) {
             this.data.put("Images", images);
@@ -51,7 +51,7 @@ public class Product extends AbstractModel {
             this.data.put("Images", imageList);
         }
 
-        this.data.put("ProductData", new ProductData((Map<String, Object>) data.get("ProductData")));
+        this.data.put("ProductData", new ProductData(response, (Map<String, Object>) data.get("ProductData")));
     }
 
     public int getAvailable() {
@@ -139,7 +139,7 @@ public class Product extends AbstractModel {
     }
 
     public String getUrl() {
-        return getString("Url");
+        return getString("url");
     }
 
     public String getVariation() {
@@ -252,7 +252,7 @@ public class Product extends AbstractModel {
     }
 
     public Product setUrl(String url) {
-        data.put("Url", url);
+        data.put("url", url);
         return this;
     }
 

@@ -13,9 +13,9 @@ public class FormatAdapter {
 
     /**
      *
-     * @param container
-     * @param name
-     * @return
+     * @param container map representing the data
+     * @param name name of the envelope for the container
+     * @return xml as a string
      */
     public static String toXML(Map<String, Object> container, String name) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" + XML.toString(new JSONObject(container), name);
@@ -28,7 +28,7 @@ public class FormatAdapter {
     /**
      *
      * @param json a Json object
-     * @return
+     * @return map representing the object
      */
     private static Map<String, Object> jsonToMap(JSONObject json) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -40,6 +40,11 @@ public class FormatAdapter {
         return map;
     }
 
+    /**
+     *
+     * @param array a Json array
+     * @return list representing the array
+     */
     private static List<Object> jsonArrayToList(JSONArray array) {
         List<Object> list = new ArrayList<Object>();
 
@@ -50,6 +55,11 @@ public class FormatAdapter {
         return list;
     }
 
+    /**
+     *
+     * @param value any kind of json object
+     * @return an object representing the json (map, array or primitive)
+     */
     private static Object valueToObject(Object value) {
         if (value instanceof JSONObject) {
             return jsonToMap((JSONObject) value);

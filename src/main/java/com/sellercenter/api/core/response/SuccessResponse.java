@@ -14,7 +14,7 @@ public class SuccessResponse extends AbstractResponse {
 	 * @param timestamp timestamp of the response as string
      * @param body Map representing the 'body' section of the response
      */
-	public SuccessResponse(String requestAction, String responseType, String timestamp, Map<String, Object> body) {
+	 SuccessResponse(String requestAction, String responseType, String timestamp, Map<String, Object> body) {
         super(requestAction, body);
 
 		this.responseType = responseType;
@@ -43,4 +43,13 @@ public class SuccessResponse extends AbstractResponse {
 	public String getResponseType() {
 		return responseType;
 	}
+
+    /**
+     *
+     * @param key key of the object
+     * @return map representing the object
+     */
+    public Map<String, Object> getObjectFromBody(String key) {
+        return (Map<String, Object>) this.getBody().get(key);
+    }
 }

@@ -1,5 +1,6 @@
 package com.sellercenter.api.core;
 
+import com.sellercenter.api.core.request.Method;
 import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.Map;
@@ -15,7 +16,7 @@ public interface Request {
      *
      * @return Method of the request.
      */
-    String getMethod();
+    Method getMethod();
 
     /**
      * Get the body of the request, in a JSON like representation,
@@ -29,7 +30,7 @@ public interface Request {
      * Get parameters of the request
      *
      * @return a map representing the parameters of a request.
-     * Always include : Action, Timestamp, UserID, Version, Signature
+     * Always include : Action, Timestamp, UserID, version, Signature
      * Can include additionnal parameters (ie search for GetProducts)
      */
     Map<String,String> getParams() throws SdkException;

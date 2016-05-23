@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class TimestampFormatter {
+public final class TimestampFormatter {
 
     /**
      * Return timestamp of a given date,

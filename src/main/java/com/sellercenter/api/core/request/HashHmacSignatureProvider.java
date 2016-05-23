@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class HashHmacSignatureProvider implements SignatureProvider {
+final class HashHmacSignatureProvider implements SignatureProvider {
 
     private static final String CHAR_UTF_8 = "UTF-8";
     private static final String HMAC_HASH_ALGORITHM = "HmacSHA256";
@@ -24,7 +24,7 @@ public class HashHmacSignatureProvider implements SignatureProvider {
      * Constructor
      * @param secretKey the API key
      */
-    public HashHmacSignatureProvider(String secretKey) {
+    HashHmacSignatureProvider(String secretKey) {
         this.secretKey = secretKey;
     }
 

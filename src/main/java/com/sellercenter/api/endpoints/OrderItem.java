@@ -1,26 +1,83 @@
-package com.sellercenter.api.models.Order;
+package com.sellercenter.api.endpoints;
 
-import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.core.Client;
+import com.sellercenter.api.core.request.Request;
+import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-public class OrderItem extends AbstractModel {
+public final class OrderItem extends AbstractModel {
 
-    public OrderItem(Map<String, Object> data) {
-        super(data);
+    /**
+     *
+     * @param id identifier of the order item
+     */
+    public OrderItem(String id) {
+        super(null);
+        this.data.put("OrderItemId", id);
     }
 
-    public int getOrderItemId() {
-        return getInt("OrderItemId");
+    OrderItem(SuccessResponse response, Map<String, Object> data) {
+        super(response);
+        this.data = data;
+    }
+
+    /**
+     *
+     * @param reason error context as retrieved with "GetFailureReasons"
+     * @param reasonDetail more detailed explaining message (custom)
+     * @throws SdkException
+     */
+    public void setStatusToCanceled(String reason, String reasonDetail) throws SdkException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("OrderItemId", getId());
+        params.put("Reason", reason);
+        params.put("ReasonDetail", reasonDetail);
+
+        SuccessResponse response = Client.call(
+                new Request("setStatusToCanceled", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
+        );
+    }
+
+    public Order setStatusToPackedByMarketplace() throws SdkException {
+        throw new SdkException("Not Implemented yet ...");
+    }
+
+    public Order setStatusToReadyToShip() throws SdkException {
+        throw new SdkException("Not Implemented yet ...");
+    }
+
+    public Order setStatusToFailedDelivery() throws SdkException {
+        throw new SdkException("Not Implemented yet ...");
+    }
+
+    public Order setStatusToDelivered() throws SdkException {
+        throw new SdkException("Not Implemented yet ...");
+    }
+
+    public Order setStatusToShipped() throws SdkException {
+        throw new SdkException("Not Implemented yet ...");
+    }
+
+    /**
+     *
+     * ATTRIBUTES GETTERS AND SETTERS
+     *
+     */
+
+    public String getId() {
+        return getString("OrderItemId");
     }
 
     public int getShopId() {
         return getInt("ShopId");
     }
 
-    public int getOrderId() {
-        return getInt("OrderId");
+    public String getOrderId() {
+        return getString("OrderId");
     }
 
     public String getName() {

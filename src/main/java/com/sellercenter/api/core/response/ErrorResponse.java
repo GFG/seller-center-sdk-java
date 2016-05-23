@@ -20,7 +20,7 @@ public class ErrorResponse extends AbstractResponse {
      * @param errorMessage more information about error
      * @param body
      */
-    public ErrorResponse(
+    ErrorResponse(
             String requestAction,
             String errorType,
             String errorCode,

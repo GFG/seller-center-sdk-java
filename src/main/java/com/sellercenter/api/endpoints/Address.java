@@ -1,6 +1,6 @@
-package com.sellercenter.api.models;
+package com.sellercenter.api.endpoints;
 
-import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.core.response.SuccessResponse;
 
 import java.util.Map;
 
@@ -8,10 +8,10 @@ import java.util.Map;
  * Model for addresses
  * Provide getters and setters to all attributes
  */
-public class Address extends AbstractModel {
+public final class Address extends AbstractModel {
 
-    public Address(Map<String, Object> body) {
-        super(body);
+    public Address(SuccessResponse response, Map<String, Object> body) {
+        super(response);
     }
 
     public String getFirstName() {

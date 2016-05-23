@@ -1,6 +1,6 @@
-package com.sellercenter.api.models.Product;
+package com.sellercenter.api.endpoints;
 
-import com.sellercenter.api.core.response.AbstractModel;
+import com.sellercenter.api.core.response.SuccessResponse;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import java.util.Map;
  * Submodel for ProductData in a Product
  * Provide getters and setters to all attributes
  */
-public class ProductData extends AbstractModel {
+public final class ProductData extends AbstractModel {
 
     /*
     private float CommissionFeeSimple;
@@ -26,8 +26,9 @@ public class ProductData extends AbstractModel {
     private String ShortDescription;
     */
 
-    public ProductData(Map<String, Object> data) {
-        super(data);
+    ProductData(SuccessResponse response, Map<String, Object> data) {
+        super(response);
+        this.data = data;
     }
 
     public float getCommissionFeeSimple() {

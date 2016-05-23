@@ -18,7 +18,7 @@ public class HashHmacSignatureProviderTest extends TestCase {
          *  Format=XML
          *  Timestamp=2015-07-01T11:11:11+00:00
          *  UserID=look@me.com
-         *  Version=1.0
+         *  version=1.0
          *  Signature=3ceb8ed91049dfc718b0d2d176fb2ed0e5fd74f76c5971f34cdab48412476041
          */
 
@@ -29,7 +29,7 @@ public class HashHmacSignatureProviderTest extends TestCase {
         params.put("Format", "XML");
         params.put("Timestamp", "2015-07-01T11:11:11+00:00");
         params.put("UserID", "look@me.com");
-        params.put("Version", "1.0");
+        params.put("version", "1.0");
 
         Assert.assertEquals(
                 "3ceb8ed91049dfc718b0d2d176fb2ed0e5fd74f76c5971f34cdab48412476041",
