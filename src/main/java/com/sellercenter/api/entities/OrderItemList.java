@@ -74,31 +74,31 @@ public final class OrderItemList implements Iterable<OrderItem> {
     /**
      * @throws SdkException
      */
-    public void setStatusToPackedByMarketplace() throws SdkException {
-        repository.setStatusToPackedByMarketplace(this);
+    public void setStatusToPackedByMarketplace(PackedByMarketPlaceOptions options) throws SdkException {
+        repository.setStatusToPackedByMarketplace(this, options);
     }
 
     /**
      * @throws SdkException
      */
-    public void setStatusToReadyToShip() throws SdkException {
-        repository.setStatusToReadyToShip(this);
+    public void setStatusToReadyToShip(ReadyToShipOptions options) throws SdkException {
+        repository.setStatusToReadyToShip(this, options);
     }
 
     /**
      * @throws SdkException
      */
-    public void setStatusToFailedDelivery() throws SdkException {
-        repository.setStatusToFailedDelivery(this);
+    public void setStatusToFailedDelivery(Reason reason, String details) throws SdkException {
+        this.repository.setStatusToFailedDelivery(this, reason, details);
     }
 
     /**
      * @param reason       error context as returned by GetFailureReasons
-     * @param reasonDetail additional explaining message
+     * @param details additional explaining message
      * @throws SdkException
      */
-    public void setStatusToCanceled(String reason, String reasonDetail) throws SdkException {
-        repository.setStatusToCanceled(this, reason, reasonDetail);
+    public void setStatusToCanceled(Reason reason, String details) throws SdkException {
+        this.repository.setStatusToCanceled(this, reason, details);
     }
 
     /**

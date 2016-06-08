@@ -35,8 +35,8 @@ public class GetOrderItems {
         for (OrderItem item : items) {
             System.out.println("    Item:");
             System.out.println("    |   Id:     " + item.getId());
-            System.out.println("    |   Name:   " + item.getName());
-            System.out.println("    |   Status: " + item.getStatus());
+            System.out.println("    |   Name:   " + item.getString("Name"));
+            System.out.println("    |   Status: " + item.getString("Status"));
             System.out.println();
         }
     }

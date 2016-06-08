@@ -1,9 +1,11 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.*;
+import com.sellercenter.api.entities.GetOrdersOptions;
+import com.sellercenter.api.entities.OrderItemList;
+import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
-public class SetStatusToReadyToShip {
+public class SetStatusToDelivered {
 
     public static void main(String[] args)
             throws Exception {
@@ -15,6 +17,7 @@ public class SetStatusToReadyToShip {
         SellerCenter.userId = Config.userId;
         SellerCenter.url = Config.url;
 
+
         /**
          * Retrieve items
          */
@@ -24,21 +27,8 @@ public class SetStatusToReadyToShip {
         OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
-         * Retrieve shipment providers
+         * set status
          */
-        ShipmentProviderList providers = SellerCenter.getShipmentProviders();
-        ShipmentProvider randomProvider = providers.iterator().next();
-
-        /**
-         * Set status
-         */
-        // different ways for options
-        ReadyToShipOptions options = (new ReadyToShipOptions())
-                .setDeliveryToDropShipping(randomProvider, "123456789XYZ");
-
-        (new ReadyToShipOptions())
-                .setDeliveryType("Delivery Type");
-
-        items.setStatusToReadyToShip(options);
+        items.setStatusToDelivered();
     }
 }

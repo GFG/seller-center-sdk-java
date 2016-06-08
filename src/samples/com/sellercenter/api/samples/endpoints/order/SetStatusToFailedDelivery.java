@@ -3,7 +3,7 @@ package com.sellercenter.api.samples.endpoints.order;
 import com.sellercenter.api.entities.*;
 import com.sellercenter.api.samples.Config;
 
-public class SetStatusToReadyToShip {
+public class SetStatusToFailedDelivery {
 
     public static void main(String[] args)
             throws Exception {
@@ -24,21 +24,14 @@ public class SetStatusToReadyToShip {
         OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
-         * Retrieve shipment providers
+         * retrieve failure reasons
          */
-        ShipmentProviderList providers = SellerCenter.getShipmentProviders();
-        ShipmentProvider randomProvider = providers.iterator().next();
+        ReasonList reasons = SellerCenter.GetFailureReasons();
+        Reason randomReason = reasons.iterator().next();
 
         /**
          * Set status
          */
-        // different ways for options
-        ReadyToShipOptions options = (new ReadyToShipOptions())
-                .setDeliveryToDropShipping(randomProvider, "123456789XYZ");
-
-        (new ReadyToShipOptions())
-                .setDeliveryType("Delivery Type");
-
-        items.setStatusToReadyToShip(options);
+        items.setStatusToFailedDelivery(randomReason, "I have my reasons to give you that reason");
     }
 }

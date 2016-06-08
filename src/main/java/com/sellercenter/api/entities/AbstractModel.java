@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.utils.FormatAdapter;
+import org.json.JSONObject;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -8,6 +9,11 @@ import java.util.Map;
 
 abstract class AbstractModel {
     final JsonObject data;
+
+    @Override
+    public String toString() {
+        return new JSONObject(data.toString()).toString(4);
+    }
 
     AbstractModel(JsonObject data) {
         if (data != null) {

@@ -40,4 +40,18 @@ class OrderRepository {
 
         return new Order(response);
     }
+
+    ReasonList getFailureReasons() throws SdkException {
+        SuccessResponse response = Client.call(
+                new Request("GetFailureReasons", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version)
+        );
+        return new ReasonList(response);
+    }
+
+    ShipmentProviderList getShipmentProviders() throws SdkException {
+        SuccessResponse response = Client.call(
+                new Request("GetShipmentProviders", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version)
+        );
+        return new ShipmentProviderList(response);
+    }
 }

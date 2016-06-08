@@ -1,8 +1,6 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemList;
-import com.sellercenter.api.entities.SellerCenter;
+import com.sellercenter.api.entities.*;
 import com.sellercenter.api.samples.Config;
 
 public class SetStatusToCanceled {
@@ -17,16 +15,22 @@ public class SetStatusToCanceled {
         SellerCenter.url = Config.url;
 
         /**
-         * Perform the API call
+         * Retrieve items
          */
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
+        // ... set other options
         OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
-        items.setStatusToCanceled("Reason", "Reason detail");
 
         /**
-         * Pretty print the response
+         * retrieve failure reasons
          */
-        System.out.println("Success !");
+        ReasonList reasons = SellerCenter.GetFailureReasons();
+        Reason randomReason = reasons.iterator().next();
+
+        /**
+         * Set status
+         */
+        items.setStatusToCanceled(randomReason, "Reason detail");
     }
 }

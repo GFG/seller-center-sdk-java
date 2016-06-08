@@ -69,34 +69,107 @@ class OrderItemRepository {
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToReadyToShip(OrderItemList items) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
+    void setStatusToReadyToShip(OrderItemList items, ReadyToShipOptions opt) throws SdkException {
+        Map<String, String> params = opt.toMap();
+        params.put("OrderItemIds", Helper.toParam(items.getIds()));
+        Client.call(
+                new Request(
+                        "SetStatusToReadyToShip",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
     }
 
     /**
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToPackedByMarketplace(OrderItemList items) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
-    }
-
-    /**
-     * @param items List of oder items to be marked
-     * @throws SdkException
-     */
-    void setStatusToFailedDelivery(OrderItemList items) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
+    void setStatusToPackedByMarketplace(OrderItemList items, PackedByMarketPlaceOptions opt) throws SdkException {
+        Map<String, String> params = opt.toMap();
+        params.put("OrderItemIds", Helper.toParam(items.getIds()));
+        Client.call(
+                new Request(
+                        "SetStatusToPackedByMarketplace",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
     }
 
     /**
      * @param items        List of oder items to be marked
      * @param reason       error context as returned by GetFailureReasons
-     * @param reasonDetail additional explaining message
+     * @param details      additional explaining message
      * @throws SdkException
      */
-    void setStatusToCanceled(OrderItemList items, String reason, String reasonDetail) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
+    void setStatusToFailedDelivery(OrderItemList items, Reason reason, String details) throws SdkException {
+        for (OrderItem item : items) {
+            this.setStatusToFailedDelivery(item, reason, details);
+        }
+    }
+
+    /**
+     * @param item         item to be marked
+     * @param reason       error context as returned by GetFailureReasons
+     * @param details      additional explaining message
+     * @throws SdkException
+     */
+    private void setStatusToFailedDelivery(OrderItem item, Reason reason, String details) throws SdkException {
+        Map<String, String> params = new HashMap<>();
+        params.put("OrderItemId", item.getId());
+        params.put("Reason", reason.getName());
+        params.put("ReasonDetail", details);
+
+        Client.call(
+                new Request(
+                        "SetStatusToFailedDelivery",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
+    }
+
+    /**
+     * @param items        List of oder items to be marked
+     * @param reason       error context as returned by GetFailureReasons
+     * @param details      additional explaining message
+     * @throws SdkException
+     */
+    void setStatusToCanceled(OrderItemList items, Reason reason, String details) throws SdkException {
+        for (OrderItem item : items) {
+            this.setStatusToCanceled(item, reason, details);
+        }
+    }
+
+
+    /**
+     * @param item         item to be marked
+     * @param reason       error context as returned by GetFailureReasons
+     * @param details      additional explaining message
+     * @throws SdkException
+     */
+    private void setStatusToCanceled(OrderItem item, Reason reason, String details) throws SdkException {
+        Map<String, String> params = new HashMap<>();
+        params.put("OrderItemId", item.getId());
+        params.put("Reason", reason.getName());
+        params.put("ReasonDetail", details);
+
+        Client.call(
+                new Request(
+                        "SetStatusToCanceled",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
     }
 
     /**
@@ -104,7 +177,28 @@ class OrderItemRepository {
      * @throws SdkException
      */
     void setStatusToDelivered(OrderItemList items) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
+        for (OrderItem item : items) {
+            this.setStatusToDelivered(item);
+        }
+    }
+
+    /**
+     * @param item         item to be marked
+     * @throws SdkException
+     */
+    private void setStatusToDelivered(OrderItem item) throws SdkException {
+        Map<String, String> params = new HashMap<>();
+        params.put("OrderItemId", item.getId());
+
+        Client.call(
+                new Request(
+                        "SetStatusToDelivered",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
     }
 
     /**
@@ -112,6 +206,28 @@ class OrderItemRepository {
      * @throws SdkException
      */
     void setStatusToShipped(OrderItemList items) throws SdkException {
-        throw new SdkException("Not Implemented yet ...");
+        for (OrderItem item : items) {
+            this.setStatusToShipped(item);
+        }
+    }
+
+    /**
+     *
+     * @param item         item to be marked
+     * @throws SdkException
+     */
+    private void setStatusToShipped(OrderItem item) throws SdkException {
+        Map<String, String> params = new HashMap<>();
+        params.put("OrderItemId", item.getId());
+
+        Client.call(
+                new Request(
+                        "SetStatusToShipped",
+                        SellerCenter.userId,
+                        SellerCenter.apiKey,
+                        SellerCenter.version,
+                        params
+                )
+        );
     }
 }

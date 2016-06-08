@@ -98,4 +98,12 @@ public final class SellerCenter {
     public static void createProduct(List<Map> products) throws SdkException {
         productRepository.createProduct(products);
     }
+
+    public static ReasonList GetFailureReasons() throws SdkException {
+        return orderRepository.getFailureReasons();
+    }
+
+    public static ShipmentProviderList getShipmentProviders() throws SdkException {
+        return orderRepository.getShipmentProviders();
+    }
 }
