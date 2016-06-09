@@ -1,7 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
-import com.sellercenter.api.exceptions.ResponseDataException;
+import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -11,6 +11,7 @@ import java.util.*;
 public final class ProductList implements Iterable<Product> {
 
     private final List<Product> products = new LinkedList<>();
+    private ProductRepository repository = new ProductRepository();
 
     /**
      * Constructor
@@ -43,4 +44,8 @@ public final class ProductList implements Iterable<Product> {
     public Iterator<Product> iterator() {
         return products.iterator();
     }
+    /**
+     *
+     * @throws SdkException
+     */
 }

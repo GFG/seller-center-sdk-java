@@ -1,7 +1,5 @@
 package com.sellercenter.api.core.utils;
 
-import java.util.List;
-
 public class Helper {
 
     /**
@@ -10,7 +8,7 @@ public class Helper {
      * @param param list of the items of the parameter
      * @return API compliant string
      */
-    public static String toParam(List<String> param) {
+    public static String toParam(Iterable<String> param) {
         return "[" + String.join(",", param) + "]";
     }
 
