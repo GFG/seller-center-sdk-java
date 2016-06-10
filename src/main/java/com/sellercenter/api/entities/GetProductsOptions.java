@@ -9,12 +9,12 @@ public final class GetProductsOptions {
     private static final int DEFAULT_OFFSET = 0;
     private static final int DEFAULT_LIMIT = 1000;
 
-    private Date createdAfter = null;
-    private Date CreatedBefore = null;
-    private Date UpdatedAfter = null;
-    private Date UpdatedBefore = null;
-    private String search = null;
-    private String filter = null;
+    private Date createdAfter;
+    private Date CreatedBefore;
+    private Date UpdatedAfter;
+    private Date UpdatedBefore;
+    private String search;
+    private String filter;
     private List<String> skuList = new ArrayList<>();
     private int offset = DEFAULT_OFFSET;
     private int limit = DEFAULT_LIMIT;
@@ -182,10 +182,10 @@ public final class GetProductsOptions {
         if (!skuList.isEmpty()) {
             map.put("SkuSellerList", Helper.toParam(skuList));
         }
-        if (offset != DEFAULT_OFFSET) {
-            map.put("Offset", Integer.toString(offset));
-        }
-        if (limit != DEFAULT_LIMIT) {
+        if (limit >= 0) {
+            if(offset >= 0) {
+                map.put("Offset", Integer.toString(offset));
+            }
             map.put("Limit", Integer.toString(limit));
         }
         return map;

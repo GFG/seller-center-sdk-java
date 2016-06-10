@@ -53,16 +53,16 @@ public final class Request implements com.sellercenter.api.core.Request {
             String apiKey,
             String version
     ) {
-        this.signatureProvider = new HashHmacSignatureProvider(apiKey);
-        this.time = new TimestampFormatter();
+        signatureProvider = new HashHmacSignatureProvider(apiKey);
+        time = new TimestampFormatter();
 
-        this.method = Method.GET;
+        method = Method.GET;
 
-        this.params = new HashMap<>();
-        this.params.put("Version", version);
-        this.params.put("UserID", userId);
-        this.params.put("Format", SDK_FORMAT);
-        this.params.put("Action", action);
+        params = new HashMap<>();
+        params.put("Version", version);
+        params.put("UserID", userId);
+        params.put("Format", SDK_FORMAT);
+        params.put("Action", action);
         updateTimestamp();
 
     }
@@ -84,7 +84,7 @@ public final class Request implements com.sellercenter.api.core.Request {
             Map<String, String> urlParams
     ) {
         this(action, userId, apiKey, version);
-        this.params.putAll(urlParams);
+        params.putAll(urlParams);
     }
 
     /**
@@ -106,7 +106,7 @@ public final class Request implements com.sellercenter.api.core.Request {
             Map<String, Object> body
     ) {
         this(action, apiKey, userId, version, urlParams);
-        this.method = Method.POST;
+        method = Method.POST;
         this.body = body;
     }
 
@@ -116,7 +116,7 @@ public final class Request implements com.sellercenter.api.core.Request {
      * @return http method
      */
     public Method getMethod() {
-        return this.method;
+        return method;
     }
 
     /**

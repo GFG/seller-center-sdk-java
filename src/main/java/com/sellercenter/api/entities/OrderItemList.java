@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;
@@ -18,7 +19,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
     /**
      * @param response api response to GetOrderItems or GetMultipleOrderItems
      */
-    OrderItemList(SuccessResponse response) {
+    OrderItemList(SuccessResponse response) throws SdkException {
 
         JsonObject body = response.getBody();
 
@@ -30,7 +31,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
             if (order instanceof JsonArray) { // multiple orders via GetMultipleOrderItems
                 for (JsonValue o : ((JsonArray) order)) {
                     if (o instanceof JsonObject) {
-                        extractItems(((JsonObject) o));
+                        extractItems((JsonObject) o);
                     }
                 }
             } else if (order instanceof JsonObject) { // single orders via GetMultipleOrderItems
@@ -44,14 +45,18 @@ public final class OrderItemList implements Iterable<OrderItem> {
      *
      * @param container body or order json object
      */
-    private void extractItems(JsonObject container) {
+    private void extractItems(JsonObject container) throws SdkException {
+        if (container.getJsonObject("OrderItems") == null
+                || container.getJsonObject("OrderItems").get("OrderItem") == null) {
+            throw new ResponseDataException("Cannot create OrderItemList");
+        }
         JsonValue orderItem = container.getJsonObject("OrderItems").get("OrderItem");
         if (orderItem instanceof JsonObject) {
-            this.items.add(new OrderItem((JsonObject) orderItem));
+            items.add(new OrderItem((JsonObject) orderItem));
         } else if (orderItem instanceof JsonArray) {
-            for (JsonValue item : ((JsonArray) orderItem)) {
+            for (JsonValue item : (JsonArray) orderItem) {
                 if (item instanceof JsonObject) {
-                    this.items.add(new OrderItem((JsonObject) item));
+                    items.add(new OrderItem((JsonObject) item));
                 }
             }
         }
@@ -63,7 +68,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
      * @throws SdkException
      */
     public Document getDocument(String documentType) throws SdkException {
-        return this.repository.getDocument(this, documentType);
+        return repository.getDocument(this, documentType);
     }
 
     /**
@@ -84,7 +89,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
      * @throws SdkException
      */
     public void setStatusToFailedDelivery() throws SdkException {
-        this.repository.setStatusToFailedDelivery(this);
+        repository.setStatusToFailedDelivery(this);
     }
 
     /**
@@ -93,21 +98,21 @@ public final class OrderItemList implements Iterable<OrderItem> {
      * @throws SdkException
      */
     public void setStatusToCanceled(String reason, String reasonDetail) throws SdkException {
-        this.repository.setStatusToCanceled(this, reason, reasonDetail);
+        repository.setStatusToCanceled(this, reason, reasonDetail);
     }
 
     /**
      * @throws SdkException
      */
     public void setStatusToDelivered() throws SdkException {
-        this.repository.setStatusToDelivered(this);
+        repository.setStatusToDelivered(this);
     }
 
     /**
      * @throws SdkException
      */
     public void setStatusToShipped() throws SdkException {
-        this.repository.setStatusToShipped(this);
+        repository.setStatusToShipped(this);
     }
 
     /**
@@ -124,7 +129,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
      */
     List<String> getIds() {
         List<String> res = new LinkedList<>();
-        for (OrderItem item : this.items) {
+        for (OrderItem item : items) {
             res.add(item.getId());
         }
         return res;

@@ -2,17 +2,19 @@ package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.request.TimestampFormatter;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class GetOrdersOptions {
     private static final int DEFAULT_OFFSET = 0;
     private static final int DEFAULT_LIMIT = 100;
 
-    private Date createdAfter = null;
-    private Date CreatedBefore = null;
+    private Date createdAfter;
+    private Date createdBefore;
     private int offset = DEFAULT_OFFSET;
     private int limit = DEFAULT_LIMIT;
-    private String status = null;
+    private String status;
 
     private TimestampFormatter time = new TimestampFormatter();
 
@@ -34,7 +36,7 @@ public final class GetOrdersOptions {
      * @return the calling instance for chaining.
      */
     public GetOrdersOptions setCreatedBefore(Date createdBefore) {
-        CreatedBefore = createdBefore;
+        this.createdBefore = createdBefore;
         return this;
     }
 
@@ -86,13 +88,13 @@ public final class GetOrdersOptions {
         if (createdAfter != null) {
             map.put("CreatedAt", this.time.getTimestamp(createdAfter));
         }
-        if (CreatedBefore != null) {
-            map.put("CreatedBefore", this.time.getTimestamp(CreatedBefore));
+        if (createdBefore != null) {
+            map.put("CreatedBefore", this.time.getTimestamp(createdBefore));
         }
-        if (offset != DEFAULT_OFFSET) {
-            map.put("Offset", Integer.toString(offset));
-        }
-        if (limit != DEFAULT_LIMIT) {
+        if (limit >= 0) {
+            if(offset >= 0) {
+                map.put("Offset", Integer.toString(offset));
+            }
             map.put("Limit", Integer.toString(limit));
         }
         return map;

@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonObject;
@@ -19,8 +20,8 @@ public final class Order extends AbstractModel {
      */
     Order(JsonObject data) {
         super(data);
-        this.addressBilling = new Address(this.data.getJsonObject("AddressBilling"));
-        this.addressShipping = new Address(this.data.getJsonObject("AddressShipping"));
+        addressBilling = new Address(this.data.getJsonObject("AddressBilling"));
+        addressShipping = new Address(this.data.getJsonObject("AddressShipping"));
     }
 
     /**
@@ -28,8 +29,23 @@ public final class Order extends AbstractModel {
      *
      * @param response response from API
      */
-    Order(SuccessResponse response) {
-        this(response.getBody().getJsonObject("Orders").getJsonObject("Order"));
+    Order(SuccessResponse response) throws SdkException {
+        this(getData(response));
+    }
+
+    /**
+     * Safely retrieve the data from a response
+     * @param response
+     * @return
+     * @throws SdkException
+     */
+    private static JsonObject getData(SuccessResponse response) throws SdkException {
+        if (response.getBody() == null
+                || response.getBody().getJsonObject("Orders") == null
+                || response.getBody().getJsonObject("Orders").getJsonObject("Order") == null) {
+            throw new ResponseDataException("Cannot create Order");
+        }
+        return response.getBody().getJsonObject("Orders").getJsonObject("Order");
     }
 
     /**
@@ -39,7 +55,7 @@ public final class Order extends AbstractModel {
      * @throws SdkException
      */
     public OrderItemList getItems() throws SdkException {
-        return this.itemRepository.retrieve(this);
+        return itemRepository.retrieve(this);
     }
 
     /**

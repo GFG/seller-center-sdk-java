@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -16,9 +17,12 @@ public final class ProductList implements Iterable<Product> {
      *
      * @param res response from the api
      */
-    ProductList(SuccessResponse res) {
-        JsonObject body = res.getBody();
-        JsonValue product = body.getJsonObject("Products").get("Product");
+    ProductList(SuccessResponse res) throws ResponseDataException {
+        if (res.getBody().getJsonObject("Products") == null
+                || res.getBody().getJsonObject("Products").get("Product") == null) {
+            throw new ResponseDataException("Cannot create Product List");
+        }
+        JsonValue product = res.getBody().getJsonObject("Products").get("Product");
 
         if (product instanceof JsonArray) {
             for (JsonValue p : (JsonArray) product) {

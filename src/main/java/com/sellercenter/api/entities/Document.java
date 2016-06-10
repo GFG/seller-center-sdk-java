@@ -2,7 +2,7 @@ package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
 
-public class Document extends AbstractModel {
+public final class Document extends AbstractModel {
 
     /**
      * Constructor

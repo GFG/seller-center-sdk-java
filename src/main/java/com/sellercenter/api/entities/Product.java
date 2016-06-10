@@ -1,13 +1,10 @@
 package com.sellercenter.api.entities;
 
-import com.sellercenter.api.exceptions.SdkException;
-
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Model for Product
@@ -26,11 +23,6 @@ public final class Product extends AbstractModel {
     private final ProductData productData;
 
     /**
-     * false if already exists in SC
-     */
-    private boolean isNew = true;
-
-    /**
      * dedicated repository
      */
     private ProductRepository repository = new ProductRepository();
@@ -42,7 +34,6 @@ public final class Product extends AbstractModel {
      */
     Product(JsonObject data) {
         super(data);
-        this.isNew = false;
 
         this.imageList = new LinkedList<>();
 
@@ -57,25 +48,6 @@ public final class Product extends AbstractModel {
             }
         }
         this.productData = new ProductData(data.getJsonObject("ProductData"));
-    }
-
-    /**
-     * Save the product to seller center
-     *
-     * @throws SdkException
-     */
-    public void save() throws SdkException {
-        this.repository.persist(this);
-    }
-
-    @Override
-    public Map<String, Object> toMap() {
-        //@Todo: generate map with variations, or updated values
-        return super.toMap();
-    }
-
-    public boolean isNew() {
-        return this.isNew;
     }
 
     public List<String> getImages() {

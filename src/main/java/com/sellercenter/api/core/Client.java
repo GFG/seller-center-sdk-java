@@ -9,7 +9,8 @@ import com.sellercenter.api.core.response.Factory;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.core.utils.FormatAdapter;
 import com.sellercenter.api.entities.SellerCenter;
-import com.sellercenter.api.exceptions.*;
+import com.sellercenter.api.exceptions.ApiException;
+import com.sellercenter.api.exceptions.SdkException;
 
 import java.io.IOException;
 

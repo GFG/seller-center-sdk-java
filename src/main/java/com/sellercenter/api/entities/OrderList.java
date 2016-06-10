@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;
@@ -17,7 +18,11 @@ public final class OrderList implements Iterable<Order> {
     /**
      * @param response response from the API
      */
-    OrderList(SuccessResponse response) {
+    OrderList(SuccessResponse response) throws ResponseDataException {
+        if (response.getBody().getJsonObject("Orders") == null
+                || response.getBody().getJsonObject("Orders").get("Order") == null) {
+            throw new ResponseDataException("Cannot create OrderList");
+        }
 
         JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
         if (orders instanceof JsonArray) {
@@ -38,7 +43,7 @@ public final class OrderList implements Iterable<Order> {
      * @throws SdkException
      */
     public OrderItemList getAllItems() throws SdkException {
-        return this.itemRepository.retrieve(this);
+        return itemRepository.retrieve(this);
     }
 
     /**

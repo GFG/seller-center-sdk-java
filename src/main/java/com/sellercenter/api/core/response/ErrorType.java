@@ -88,7 +88,7 @@ public enum ErrorType {
     public SdkException getException(String errorMessage) throws ReflectiveOperationException {
         Constructor<? extends SdkException> constructor = exceptionClass.getConstructor(String.class);
         if (errorMessagePrefix != null) {
-            errorMessage = errorMessagePrefix + errorMessage;
+            errorMessage = errorMessagePrefix + errorMessage + " (Code: " + errorNumber + " )";
         }
         return constructor.newInstance(errorMessage);
     }
