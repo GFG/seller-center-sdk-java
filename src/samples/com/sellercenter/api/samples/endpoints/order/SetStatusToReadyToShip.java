@@ -28,6 +28,6 @@ public class SetStatusToReadyToShip {
         /**
          * Pretty print the response
          */
-        System.out.println("Success !\n");
+        System.out.println("Success !");
     }
 }

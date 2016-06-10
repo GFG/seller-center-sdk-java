@@ -43,13 +43,4 @@ public final class ProductList implements Iterable<Product> {
     public Iterator<Product> iterator() {
         return products.iterator();
     }
-
-    /**
-     * Return a map of changes in product to be updated in Seller Center
-     *
-     * @return map representing all products
-     */
-    public Map<String, Object> toMap() {
-        return new HashMap<>();
-    }
 }

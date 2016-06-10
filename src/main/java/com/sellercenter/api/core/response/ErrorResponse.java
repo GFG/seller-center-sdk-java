@@ -60,9 +60,4 @@ public class ErrorResponse extends AbstractResponse {
     public String getErrorType() {
         return errorType;
     }
-
-    @Override
-    public JsonObject getBody() {
-        return null;
-    }
 }
