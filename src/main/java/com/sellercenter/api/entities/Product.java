@@ -1,11 +1,14 @@
 package com.sellercenter.api.entities;
 
+import com.sellercenter.api.exceptions.SdkException;
+
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Model for Product

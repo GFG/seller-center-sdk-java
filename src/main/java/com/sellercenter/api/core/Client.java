@@ -53,12 +53,11 @@ public class Client {
                     .back();
 
             if (request.getMethod() == Method.POST) {
-                requestToSend
+                requestToSend = requestToSend
                         .body()
                         .set(FormatAdapter.toXML(request.getBody(), "Request"))
                         .back();
             }
-
             response = requestToSend.fetch()
 
                     .as(JsonResponse.class);

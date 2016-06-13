@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;

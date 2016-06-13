@@ -1,7 +1,10 @@
 package com.sellercenter.api.entities;
 
+import com.sellercenter.api.exceptions.ResponseDataException;
+
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,16 +17,28 @@ public class Attribute extends AbstractModel {
      *
      * @param data
      */
-    Attribute(JsonObject data) {
+    Attribute(JsonObject data) throws ResponseDataException {
         super(data);
 
-        JsonObject option = data.getJsonObject("Options").getJsonObject("Option");
+        if (data.get("Options") == null) {
+            throw new ResponseDataException("Cannot create attribute");
+        }
 
-        if (option instanceof JsonArray) {
-            for (JsonValue opt : (JsonArray) option) {
-                if (opt instanceof JsonObject) {
-                    options.add(new AttributeOption((JsonObject) opt));
+        if (data.get("Options") instanceof JsonObject) {
+            JsonValue option = data.getJsonObject("Options").get("Option");
+
+            if (option == null) {
+                throw new ResponseDataException("Cannot create attribute");
+            }
+
+            if (option instanceof JsonArray) {
+                for (JsonValue opt : (JsonArray) option) {
+                    if (opt instanceof JsonObject) {
+                        options.add(new AttributeOption((JsonObject) opt));
+                    }
                 }
+            } else if (option instanceof JsonObject) {
+                options.add(new AttributeOption((JsonObject) option));
             }
         }
     }
@@ -33,7 +48,7 @@ public class Attribute extends AbstractModel {
      * @return true if attribute is mandatory
      */
     public boolean isMandatory() {
-        return data.getInt("isMandatory") == 0;
+        return this.getInt("isMandatory") != 0;
     }
 
     /**

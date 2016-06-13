@@ -1,6 +1,7 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
+import com.sellercenter.api.exceptions.ResponseDataException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -15,7 +16,7 @@ class Factory {
      * @param response
      * @return
      */
-    static Collection<Attribute> createAttributeCollection(SuccessResponse response) {
+    static Collection<Attribute> createAttributeCollection(SuccessResponse response) throws ResponseDataException {
         JsonValue attribute = response.getBody().get("Attribute");
 
         Collection<Attribute> attributes = new ArrayList<>();
@@ -36,9 +37,12 @@ class Factory {
      * @param response
      * @return
      */
-    static Collection<Category> createCategoryCollection(SuccessResponse response) {
-        JsonValue category = response.getBody().getJsonObject("Categories").get("Category");
-        return createCategoryCollection(category);
+    static Collection<Category> createCategoryCollection(SuccessResponse response) throws ResponseDataException {
+        JsonObject categories = response.getBody().getJsonObject("Categories");
+        if (categories == null) {
+            throw new ResponseDataException("Can't create category collection from response");
+        }
+        return createCategoryCollection(categories);
     }
 
     /**
@@ -46,17 +50,23 @@ class Factory {
      * @param data Json data representing a set of categories
      * @return
      */
-    static Collection<Category> createCategoryCollection(JsonValue data) {
+    static Collection<Category> createCategoryCollection(JsonValue data) throws ResponseDataException {
         Collection<Category> categories = new ArrayList<>();
 
-        if (data instanceof JsonArray) {
-            for(JsonValue cat : ((JsonArray) data)) {
-                if (cat instanceof JsonObject) {
-                    categories.add(new Category((JsonObject) cat));
-                }
+        if (data instanceof JsonObject) {
+            JsonValue category = ((JsonObject) data).get("Category");
+            if (category == null) {
+                throw new ResponseDataException("Cannot create category collection");
             }
-        } else if (data instanceof JsonObject) {
-            categories.add(new Category((JsonObject) data));
+            if (category instanceof JsonArray) {
+                for (JsonValue cat : ((JsonArray) category)) {
+                    if (cat instanceof JsonObject) {
+                        categories.add(new Category((JsonObject) cat));
+                    }
+                }
+            } else if (category instanceof JsonObject) {
+                categories.add(new Category((JsonObject) category));
+            }
         }
 
         return categories;
