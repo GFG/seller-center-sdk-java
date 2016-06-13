@@ -105,7 +105,7 @@ public final class Request implements com.sellercenter.api.core.Request {
             Map<String, String> urlParams,
             Map<String, Object> body
     ) {
-        this(action, apiKey, userId, version, urlParams);
+        this(action, userId, apiKey, version, urlParams);
         method = Method.POST;
         this.body = body;
     }
