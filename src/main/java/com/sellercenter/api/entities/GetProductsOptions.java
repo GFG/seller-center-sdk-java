@@ -1,6 +1,5 @@
 package com.sellercenter.api.entities;
 
-import com.jcabi.immutable.ArraySet;
 import com.sellercenter.api.core.request.TimestampFormatter;
 import com.sellercenter.api.core.utils.Helper;
 
@@ -113,12 +112,14 @@ public final class GetProductsOptions {
      * @return the calling instance for chaining.
      */
     public GetProductsOptions setSkuList(Collection<String> skuList) {
+        skuList.clear();
         this.skuList.addAll(skuList);
         return this;
     }
 
     /**
      * Limits to products whose SKU are added
+     * The list set by setSkuList will not be erased prior to addition
      *
      * @param sku one of the searched sku
      * @return the calling instance for chaining.

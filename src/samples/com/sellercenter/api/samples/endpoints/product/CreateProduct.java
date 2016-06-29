@@ -5,8 +5,6 @@ import com.sellercenter.api.entities.Category;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
-import java.util.*;
-
 public class CreateProduct {
 
     public static void main(String[] args)

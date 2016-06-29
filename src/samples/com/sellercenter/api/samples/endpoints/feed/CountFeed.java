@@ -1,7 +1,7 @@
 package com.sellercenter.api.samples.endpoints.feed;
 
-import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.entities.FeedCount;
+import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
 public class CountFeed {

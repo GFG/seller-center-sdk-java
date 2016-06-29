@@ -32,9 +32,9 @@ public class GetCategoryAttribute {
         for(Attribute attribute : attributes) {
             StringBuilder att = new StringBuilder();
             if (attribute.isMandatory()) {
-                att.append("    * ");
+                att.append("\t* ");
             } else {
-                att.append("      ");
+                att.append("\t  ");
             }
             att.append(attribute.getIdentifier());
             System.out.println(att.toString());

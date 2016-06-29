@@ -1,9 +1,9 @@
 package com.sellercenter.api.samples.endpoints.product;
 
-import com.sellercenter.api.entities.ProductList;
-import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.entities.GetProductsOptions;
 import com.sellercenter.api.entities.Product;
+import com.sellercenter.api.entities.ProductList;
+import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
 public class GetProducts {
@@ -33,11 +33,11 @@ public class GetProducts {
         System.out.println("Products :");
         for (Product p : products) {
             System.out.println("");
-            System.out.println("    " + p.getString("Name"));
-            System.out.println("    |   sku:      " + p.getString("SellerSku"));
-            System.out.println("    |   Category: " + p.getString("PrimaryCategory"));
-            System.out.println("    |   price:    " + p.getString("Price"));
-            System.out.println("    |   Image:    " + p.getString("MainImage"));
+            System.out.println("\t" + p.getString("Name"));
+            System.out.println("\t|   sku:      " + p.getString("SellerSku"));
+            System.out.println("\t|   Category: " + p.getString("PrimaryCategory"));
+            System.out.println("\t|   price:    " + p.getString("Price"));
+            System.out.println("\t|   Image:    " + p.getString("MainImage"));
         }
     }
 }

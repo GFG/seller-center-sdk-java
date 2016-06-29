@@ -38,7 +38,7 @@ public class GetCategoryTree {
 
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < depth; ++i) {
-            res.append("    ");
+            res.append('\t');
         }
         res.append(cat.getString("Name"));
         System.out.println(res.toString());

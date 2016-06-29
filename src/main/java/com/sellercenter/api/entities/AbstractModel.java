@@ -45,9 +45,6 @@ abstract class AbstractModel {
      * @return the value to which the specified key is mapped as int
      */
     public Integer getInt(String key) {
-        if (getString(key) == null) {
-            return null;
-        }
         try {
             return Integer.parseInt(getString(key));
         } catch (NumberFormatException e) {

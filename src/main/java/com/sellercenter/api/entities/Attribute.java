@@ -4,7 +4,6 @@ import com.sellercenter.api.exceptions.ResponseDataException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonString;
 import javax.json.JsonValue;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,7 +47,9 @@ public class Attribute extends AbstractModel {
      * @return true if attribute is mandatory
      */
     public boolean isMandatory() {
-        return this.getInt("isMandatory") != 0;
+        Integer mandatory = this.getInt("isMandatory");
+        return mandatory != null
+                && !mandatory.equals(0);
     }
 
     /**
@@ -60,6 +61,7 @@ public class Attribute extends AbstractModel {
     public String getIdentifier() {
         return data.getString("Name");
     }
+
     /**
      * Returns the options of the attribute.
      * The set is empty if no options are required.

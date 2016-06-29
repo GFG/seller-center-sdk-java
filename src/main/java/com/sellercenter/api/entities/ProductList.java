@@ -2,12 +2,13 @@ package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.exceptions.ResponseDataException;
-import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class ProductList implements Iterable<Product> {
 
@@ -45,8 +46,5 @@ public final class ProductList implements Iterable<Product> {
     public Iterator<Product> iterator() {
         return products.iterator();
     }
-    /**
-     *
-     * @throws SdkException
-     */
+
 }
