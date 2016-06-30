@@ -37,7 +37,7 @@ class OrderItemRepository {
      */
     OrderItemList retrieve(Order order) throws SdkException {
         Map<String, String> params = new HashMap<>();
-        params.put("OrderId", order.getOrderId());
+        params.put("OrderId", order.getId());
         SuccessResponse response = Client.call(
                 new Request("GetOrderItems", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
         );
@@ -109,7 +109,7 @@ class OrderItemRepository {
      */
     void setStatusToFailedDelivery(OrderItemList items, Reason reason, String details) throws SdkException {
         for (OrderItem item : items) {
-            this.setStatusToFailedDelivery(item, reason, details);
+            setStatusToFailedDelivery(item, reason, details);
         }
     }
 
@@ -122,7 +122,7 @@ class OrderItemRepository {
     private void setStatusToFailedDelivery(OrderItem item, Reason reason, String details) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderItemId", item.getId());
-        params.put("Reason", reason.getName());
+        params.put("Reason", reason.getId());
         params.put("ReasonDetail", details);
 
         Client.call(
@@ -144,7 +144,7 @@ class OrderItemRepository {
      */
     void setStatusToCanceled(OrderItemList items, Reason reason, String details) throws SdkException {
         for (OrderItem item : items) {
-            this.setStatusToCanceled(item, reason, details);
+            setStatusToCanceled(item, reason, details);
         }
     }
 
@@ -158,7 +158,7 @@ class OrderItemRepository {
     private void setStatusToCanceled(OrderItem item, Reason reason, String details) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderItemId", item.getId());
-        params.put("Reason", reason.getName());
+        params.put("Reason", reason.getId());
         params.put("ReasonDetail", details);
 
         Client.call(
@@ -178,7 +178,7 @@ class OrderItemRepository {
      */
     void setStatusToDelivered(OrderItemList items) throws SdkException {
         for (OrderItem item : items) {
-            this.setStatusToDelivered(item);
+            setStatusToDelivered(item);
         }
     }
 
@@ -207,7 +207,7 @@ class OrderItemRepository {
      */
     void setStatusToShipped(OrderItemList items) throws SdkException {
         for (OrderItem item : items) {
-            this.setStatusToShipped(item);
+            setStatusToShipped(item);
         }
     }
 

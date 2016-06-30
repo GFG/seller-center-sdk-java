@@ -63,7 +63,7 @@ public final class OrderList implements Iterable<Order> {
     List<String> getIds() {
         List<String> ids = new LinkedList<>();
         for (Order o : orders) {
-            ids.add(o.getOrderId());
+            ids.add(o.getId());
         }
         return ids;
     }

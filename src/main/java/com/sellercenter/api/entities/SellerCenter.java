@@ -99,7 +99,7 @@ public final class SellerCenter {
         productRepository.createProduct(products);
     }
 
-    public static ReasonList GetFailureReasons() throws SdkException {
+    public static ReasonList getFailureReasons() throws SdkException {
         return orderRepository.getFailureReasons();
     }
 

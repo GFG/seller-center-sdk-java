@@ -89,7 +89,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
      * @throws SdkException
      */
     public void setStatusToFailedDelivery(Reason reason, String details) throws SdkException {
-        this.repository.setStatusToFailedDelivery(this, reason, details);
+        repository.setStatusToFailedDelivery(this, reason, details);
     }
 
     /**
@@ -98,7 +98,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
      * @throws SdkException
      */
     public void setStatusToCanceled(Reason reason, String details) throws SdkException {
-        this.repository.setStatusToCanceled(this, reason, details);
+        repository.setStatusToCanceled(this, reason, details);
     }
 
     /**

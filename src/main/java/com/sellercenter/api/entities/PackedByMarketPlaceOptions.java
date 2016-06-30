@@ -18,10 +18,10 @@ public class PackedByMarketPlaceOptions {
      * @throws SdkException
      */
     public PackedByMarketPlaceOptions setDeliveryType(String type) throws SdkException {
-        if (this.deliveryType.equals(DROP_SHIP)) {
+        if (deliveryType.equals(DROP_SHIP)) {
             throw new SdkException("Please use setToDropShipping method instead of setDeliveryType for Dropshipping");
         }
-        this.deliveryType = type;
+        deliveryType = type;
         return this;
     }
 
@@ -31,7 +31,7 @@ public class PackedByMarketPlaceOptions {
      * @return the calling instance for chaining
      */
     public PackedByMarketPlaceOptions setDeliveryToDropShipping(ShipmentProvider shippingProvider) {
-        this.deliveryType = DROP_SHIP;
+        deliveryType = DROP_SHIP;
         this.shippingProvider = shippingProvider;
         return this;
     }
@@ -48,7 +48,7 @@ public class PackedByMarketPlaceOptions {
             map.put("DeliveryType", deliveryType);
         }
         if (shippingProvider != null) {
-            map.put("ShippingProvider", shippingProvider.getName());
+            map.put("ShippingProvider", shippingProvider.getId());
         }
         return map;
     }

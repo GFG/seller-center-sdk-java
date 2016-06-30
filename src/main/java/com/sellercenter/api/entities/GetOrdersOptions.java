@@ -86,10 +86,10 @@ public final class GetOrdersOptions {
             map.put("Status", status);
         }
         if (createdAfter != null) {
-            map.put("CreatedAt", this.time.getTimestamp(createdAfter));
+            map.put("CreatedAt", time.getTimestamp(createdAfter));
         }
         if (createdBefore != null) {
-            map.put("CreatedBefore", this.time.getTimestamp(createdBefore));
+            map.put("CreatedBefore", time.getTimestamp(createdBefore));
         }
         if (limit >= 0) {
             if(offset >= 0) {

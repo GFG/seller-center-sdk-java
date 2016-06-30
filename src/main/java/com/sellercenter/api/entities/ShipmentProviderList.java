@@ -16,7 +16,7 @@ public class ShipmentProviderList implements Iterable<ShipmentProvider> {
         JsonObject body = response.getBody();
         JsonValue reason = body.getJsonObject("ShipmentProviders").get("ShipmentProvider");
         if (reason instanceof JsonObject) {
-            this.shipmentProviders.add(new ShipmentProvider((JsonObject) reason));
+            shipmentProviders.add(new ShipmentProvider((JsonObject) reason));
         } else if (reason instanceof JsonArray) {
             for (JsonValue r : (JsonArray) reason) {
                 if (r instanceof JsonObject) {

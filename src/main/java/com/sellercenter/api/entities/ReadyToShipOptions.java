@@ -18,15 +18,15 @@ public class ReadyToShipOptions {
 
     /**
      *
-     * @param deliveryType Type of delivery
+     * @param type Type of delivery
      * @return the calling instance for chaining
      * @throws SdkException
      */
-    public ReadyToShipOptions setDeliveryType(String deliveryType) throws SdkException {
-        if (this.deliveryType.equals(DROP_SHIP)) {
+    public ReadyToShipOptions setDeliveryType(String type) throws SdkException {
+        if (deliveryType.equals(DROP_SHIP)) {
             throw new SdkException("Please use setToDropShipping method instead of setDeliveryType for Dropshipping");
         }
-        this.deliveryType = deliveryType;
+        deliveryType = type;
         return this;
     }
 
@@ -37,7 +37,7 @@ public class ReadyToShipOptions {
      * @return the calling instance for chaining
      */
     public ReadyToShipOptions setDeliveryToDropShipping(ShipmentProvider shippingProvider, String trackingNumber) {
-        this.deliveryType = DROP_SHIP;
+        deliveryType = DROP_SHIP;
         this.shippingProvider = shippingProvider;
         this.trackingNumber = trackingNumber;
         return this;
@@ -65,7 +65,7 @@ public class ReadyToShipOptions {
             map.put("DeliveryType", deliveryType);
         }
         if (shippingProvider != null) {
-            map.put("ShippingProvider", shippingProvider.getName());
+            map.put("ShippingProvider", shippingProvider.getId());
         }
         if (trackingNumber != null) {
             map.put("TrackingNumber", trackingNumber);

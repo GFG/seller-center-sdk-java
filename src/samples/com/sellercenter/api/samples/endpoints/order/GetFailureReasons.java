@@ -19,7 +19,7 @@ public class GetFailureReasons {
         /**
          * Get Reasons
          */
-        ReasonList reasons = SellerCenter.GetFailureReasons();
+        ReasonList reasons = SellerCenter.getFailureReasons();
 
         /**
          * Pretty print the response
@@ -31,8 +31,8 @@ public class GetFailureReasons {
         System.out.println();
         for (Reason reason : reasons) {
             System.out.println("    Reason:");
-            System.out.println("    |   Name:  " + reason.getName());
-            System.out.println("    |   Type:  " + reason.getType());
+            System.out.println("    |   Name:  " + reason.getString("Name"));
+            System.out.println("    |   Type:  " + reason.getString("Type"));
             System.out.println();
         }
     }

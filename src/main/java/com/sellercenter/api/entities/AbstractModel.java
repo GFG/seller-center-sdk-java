@@ -10,11 +10,6 @@ import java.util.Map;
 abstract class AbstractModel {
     final JsonObject data;
 
-    @Override
-    public String toString() {
-        return new JSONObject(data.toString()).toString(4);
-    }
-
     AbstractModel(JsonObject data) {
         if (data != null) {
             this.data = data;

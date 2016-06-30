@@ -3,20 +3,18 @@ package com.sellercenter.api.entities;
 import javax.json.JsonObject;
 
 public class Reason extends AbstractModel {
-    private final String type;
-    private final String name;
+    private final String id;
 
-    Reason(JsonObject r) {
-        super(r);
-        this.type = r.getString("Type");
-        this.name = r.getString("Name");
+    Reason(JsonObject data) {
+        super(data);
+        id = data.getString("Name");
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getName() {
-        return name;
+    /**
+     * Simple getter for the public id
+     * @return public id of the reason
+     */
+    String getId() {
+        return id;
     }
 }

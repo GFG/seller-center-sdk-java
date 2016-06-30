@@ -16,7 +16,7 @@ public class ReasonList implements Iterable<Reason> {
         JsonObject body = response.getBody();
         JsonValue reason = body.getJsonObject("Reasons").get("Reason");
         if (reason instanceof JsonObject) {
-            this.reasons.add(new Reason((JsonObject) reason));
+            reasons.add(new Reason((JsonObject) reason));
         } else if (reason instanceof JsonArray) {
             for (JsonValue r : (JsonArray) reason) {
                 if (r instanceof JsonObject) {

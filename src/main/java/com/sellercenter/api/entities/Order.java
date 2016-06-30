@@ -62,7 +62,7 @@ public final class Order extends AbstractModel {
      * ATTRIBUTES GETTERS AND SETTERS
      */
 
-    public String getOrderId() {
+    public String getId() {
         return getString("OrderId");
     }
 

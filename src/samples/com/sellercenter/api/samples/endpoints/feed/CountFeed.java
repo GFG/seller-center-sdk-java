@@ -26,11 +26,11 @@ public class CountFeed {
          */
         System.out.println("FeedCount :");
 
-        System.out.println("    Total       " + feedCount.getTotal());
-        System.out.println("    Queued      " + feedCount.getQueued());
-        System.out.println("    Processing  " + feedCount.getProcessing());
-        System.out.println("    Finished    " + feedCount.getFinished());
-        System.out.println("    Canceled    " + feedCount.getCanceled());
+        System.out.println("    Total       " + feedCount.getInt("Total"));
+        System.out.println("    Queued      " + feedCount.getInt("Queued"));
+        System.out.println("    Processing  " + feedCount.getInt("Processing"));
+        System.out.println("    Finished    " + feedCount.getInt("Finished"));
+        System.out.println("    Canceled    " + feedCount.getInt("Canceled"));
         System.out.println();
     }
 }
