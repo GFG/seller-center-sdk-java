@@ -1,7 +1,5 @@
 package com.sellercenter.api.entities;
 
-import com.sellercenter.api.core.Client;
-import com.sellercenter.api.core.request.Request;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.core.utils.Helper;
 import com.sellercenter.api.exceptions.SdkException;
@@ -9,7 +7,7 @@ import com.sellercenter.api.exceptions.SdkException;
 import java.util.HashMap;
 import java.util.Map;
 
-class OrderItemRepository {
+class OrderItemRepository extends AbstractRepository {
 
     /**
      * Returns the items for one or more orders.
@@ -21,9 +19,7 @@ class OrderItemRepository {
     OrderItemList retrieve(OrderList orders) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderIdList", Helper.toParam(orders.getIds()));
-        SuccessResponse response = Client.call(
-                new Request("GetMultipleOrderItems", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
-        );
+        SuccessResponse response = requestApi("GetMultipleOrderItems", params);
 
         return new OrderItemList(response);
     }
@@ -38,9 +34,7 @@ class OrderItemRepository {
     OrderItemList retrieve(Order order) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderId", order.getId());
-        SuccessResponse response = Client.call(
-                new Request("GetOrderItems", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
-        );
+        SuccessResponse response = requestApi("GetOrderItems", params);
 
         return new OrderItemList(response);
     }
@@ -58,9 +52,7 @@ class OrderItemRepository {
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
         params.put("DocumentType", documentType);
 
-        SuccessResponse response = Client.call(
-                new Request("GetDocument", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
-        );
+        SuccessResponse response = requestApi("GetDocument", params);
 
         return new Document(response);
     }
@@ -72,15 +64,7 @@ class OrderItemRepository {
     void setStatusToReadyToShip(OrderItemList items, ReadyToShipOptions opt) throws SdkException {
         Map<String, String> params = opt.toMap();
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
-        Client.call(
-                new Request(
-                        "SetStatusToReadyToShip",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToReadyToShip", params);
     }
 
     /**
@@ -90,15 +74,7 @@ class OrderItemRepository {
     void setStatusToPackedByMarketplace(OrderItemList items, PackedByMarketPlaceOptions opt) throws SdkException {
         Map<String, String> params = opt.toMap();
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
-        Client.call(
-                new Request(
-                        "SetStatusToPackedByMarketplace",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToPackedByMarketplace", params);
     }
 
     /**
@@ -125,15 +101,7 @@ class OrderItemRepository {
         params.put("Reason", reason.getId());
         params.put("ReasonDetail", details);
 
-        Client.call(
-                new Request(
-                        "SetStatusToFailedDelivery",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToFailedDelivery", params);
     }
 
     /**
@@ -161,15 +129,7 @@ class OrderItemRepository {
         params.put("Reason", reason.getId());
         params.put("ReasonDetail", details);
 
-        Client.call(
-                new Request(
-                        "SetStatusToCanceled",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToCanceled", params);
     }
 
     /**
@@ -190,15 +150,7 @@ class OrderItemRepository {
         Map<String, String> params = new HashMap<>();
         params.put("OrderItemId", item.getId());
 
-        Client.call(
-                new Request(
-                        "SetStatusToDelivered",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToDelivered", params);
     }
 
     /**
@@ -220,14 +172,6 @@ class OrderItemRepository {
         Map<String, String> params = new HashMap<>();
         params.put("OrderItemId", item.getId());
 
-        Client.call(
-                new Request(
-                        "SetStatusToShipped",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        );
+        requestApi("SetStatusToShipped", params);
     }
 }

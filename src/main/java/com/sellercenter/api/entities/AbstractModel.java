@@ -1,7 +1,6 @@
 package com.sellercenter.api.entities;
 
 import com.sellercenter.api.core.utils.FormatAdapter;
-import org.json.JSONObject;
 
 import javax.json.Json;
 import javax.json.JsonObject;
