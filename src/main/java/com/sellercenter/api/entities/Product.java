@@ -4,6 +4,7 @@ import com.sellercenter.api.exceptions.SdkException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -51,7 +52,9 @@ public final class Product extends AbstractModel {
             JsonValue imageData = data.getJsonObject("Images").get("Image");
             if (imageData instanceof JsonArray) {
                 for (JsonValue img : (JsonArray) imageData) {
-                    imageList.add(img.toString());
+                    if (img instanceof JsonString) {
+                        imageList.add(((JsonString) img).getString());
+                    }
                 }
             } else {
                 imageList.add(imageData.toString());

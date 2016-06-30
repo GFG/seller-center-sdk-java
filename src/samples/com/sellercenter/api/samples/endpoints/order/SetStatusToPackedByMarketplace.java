@@ -1,5 +1,8 @@
 package com.sellercenter.api.samples.endpoints.order;
 
+import com.sellercenter.api.entities.GetOrdersOptions;
+import com.sellercenter.api.entities.OrderItemList;
+import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
 public class SetStatusToPackedByMarketplace {

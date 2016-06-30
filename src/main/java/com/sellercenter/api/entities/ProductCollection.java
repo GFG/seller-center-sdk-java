@@ -22,20 +22,25 @@ public final class ProductCollection implements Iterable<Product> {
      * @param res response from the api
      */
     ProductCollection(SuccessResponse res) throws ResponseDataException {
-        if (res.getBody().getJsonObject("Products") == null
-                || res.getBody().getJsonObject("Products").get("Product") == null) {
+        if (res.getBody().get("Products") == null) {
             throw new ResponseDataException("Cannot create Product List");
         }
-        JsonValue product = res.getBody().getJsonObject("Products").get("Product");
 
-        if (product instanceof JsonArray) {
-            for (JsonValue p : (JsonArray) product) {
-                if (p instanceof JsonObject) {
-                    products.add(new Product((JsonObject) p));
-                }
+        if (res.getBody().get("Products") instanceof JsonObject) {
+            if (res.getBody().getJsonObject("Products").get("Product") == null) {
+                throw new ResponseDataException("Cannot create Product List");
             }
-        } else if (product instanceof JsonObject) {
-            products.add(new Product((JsonObject) product));
+            JsonValue product = res.getBody().getJsonObject("Products").get("Product");
+
+            if (product instanceof JsonArray) {
+                for (JsonValue p : (JsonArray) product) {
+                    if (p instanceof JsonObject) {
+                        products.add(new Product((JsonObject) p));
+                    }
+                }
+            } else if (product instanceof JsonObject) {
+                products.add(new Product((JsonObject) product));
+            }
         }
     }
 
