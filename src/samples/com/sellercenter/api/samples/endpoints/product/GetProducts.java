@@ -2,7 +2,7 @@ package com.sellercenter.api.samples.endpoints.product;
 
 import com.sellercenter.api.entities.GetProductsOptions;
 import com.sellercenter.api.entities.Product;
-import com.sellercenter.api.entities.ProductList;
+import com.sellercenter.api.entities.ProductCollection;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
@@ -23,7 +23,7 @@ public class GetProducts {
          */
         GetProductsOptions opt = new GetProductsOptions();
         opt.setLimit(2).addSku("7878");
-        ProductList products = SellerCenter.getProducts(opt);
+        ProductCollection products = SellerCenter.getProducts(opt);
 
         /**
          * Pretty print the response

@@ -77,7 +77,7 @@ public final class SellerCenter {
      * @return list of all or a range of products
      * @throws SdkException
      */
-    public static ProductList getProducts(GetProductsOptions options) throws SdkException {
+    public static ProductCollection getProducts(GetProductsOptions options) throws SdkException {
         return productRepository.retrieve(options);
     }
 

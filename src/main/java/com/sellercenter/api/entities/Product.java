@@ -30,7 +30,12 @@ public final class Product extends AbstractModel {
      * dedicated repository
      */
     private ProductRepository repository = new ProductRepository();
-    private Map<String, Object> updateAttributes = null;
+
+    /**
+     * Map containing data for updates
+     * Should never be set to null, only cleared
+     */
+    private Map<String, Object> updateAttributes = new HashMap<>();
 
     /**
      * Constructor
@@ -62,7 +67,8 @@ public final class Product extends AbstractModel {
      * @param attributes A map associating attributes with their new requested value.
      */
     public void setNewAttributes(Map<String, Object> attributes) {
-        this.updateAttributes = new HashMap<>(attributes);
+        updateAttributes.clear();
+        updateAttributes.putAll(attributes);
     }
 
     /**
@@ -72,16 +78,16 @@ public final class Product extends AbstractModel {
      * @throws SdkException
      */
     public void update() throws SdkException {
-        this.repository.update(this);
+        repository.update(this);
     }
 
     /**
-     * Predicate to test if new attributes were set
+     * Predicate to test if products can be updated
      *
      * @return true if new attributes were set
      */
     boolean hasNewAttributes() {
-        return this.updateAttributes != null;
+        return updateAttributes.isEmpty();
     }
 
     /**
@@ -89,20 +95,15 @@ public final class Product extends AbstractModel {
      * Also include SellerSku to identify the product.
      * Clear the attributes of the instance.
      *
-     * If no attributes were set, throw an exception.
-     *
      * @return Map associating attributes to their new value
-     * @throws SdkException
      */
-    Map<String, Object> retrieveNewAttributes() throws SdkException {
-        if (!hasNewAttributes()) {
-            throw new SdkException("Product update : No new attributes were set for update");
-        }
-        Map<String, Object> attributes = this.updateAttributes;
+    Map<String, Object> retrieveNewAttributes() {
+        Map<String, Object> attributes = new HashMap<>(updateAttributes);
         attributes.put("SellerSku", getString("SellerSku"));
-        this.updateAttributes = null;
+        updateAttributes.clear();
         return attributes;
     }
+
     public List<String> getImages() {
         return imageList;
     }

@@ -17,7 +17,7 @@ class ProductRepository {
      * @return list of all or a range of products
      * @throws SdkException
      */
-    ProductList retrieve(GetProductsOptions options) throws SdkException {
+    ProductCollection retrieve(GetProductsOptions options) throws SdkException {
         SuccessResponse response = Client.call(
                 new Request(
                         "GetProducts",
@@ -28,7 +28,7 @@ class ProductRepository {
                 )
         );
 
-        return new ProductList(response);
+        return new ProductCollection(response);
     }
 
     void update(Product product) throws SdkException {
@@ -51,7 +51,7 @@ class ProductRepository {
         );
     }
 
-    void update(List<Product> products) throws SdkException {
+    void update(Collection<Product> products) throws SdkException {
         List<Map> updateList = new LinkedList<>();
         for (Product product : products) {
             if (product.hasNewAttributes()) {
