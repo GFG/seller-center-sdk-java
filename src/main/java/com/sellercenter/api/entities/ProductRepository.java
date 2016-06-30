@@ -1,13 +1,11 @@
 package com.sellercenter.api.entities;
 
-import com.sellercenter.api.core.Client;
-import com.sellercenter.api.core.request.Request;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.*;
 
-class ProductRepository {
+class ProductRepository extends AbstractRepository {
 
     /**
      * Perform api call to get a list of products
@@ -18,15 +16,7 @@ class ProductRepository {
      * @throws SdkException
      */
     ProductCollection retrieve(GetProductsOptions options) throws SdkException {
-        SuccessResponse response = Client.call(
-                new Request(
-                        "GetProducts",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        options.toMap()
-                )
-        );
+        SuccessResponse response = requestApi("GetProducts", options.toMap());
 
         return new ProductCollection(response);
     }
@@ -39,16 +29,7 @@ class ProductRepository {
 
         Map<String, String> params = new HashMap<>();
 
-        Client.call(
-                new Request(
-                        "UpdateProducts",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params,
-                        body
-                )
-        );
+        requestApi("UpdateProducts", params, body);
     }
 
     void update(Collection<Product> products) throws SdkException {
@@ -64,56 +45,25 @@ class ProductRepository {
 
         Map<String, String> params = new HashMap<>();
 
-        Client.call(
-                new Request(
-                        "UpdateProducts",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params,
-                        body
-                )
-        );
+        requestApi("UpdateProducts", params, body);
     }
 
     Collection<Attribute> getCategoryAttributes(Category category) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("PrimaryCategory", category.getString("CategoryId"));
-        return Factory.createAttributeCollection(Client.call(
-                new Request(
-                        "GetCategoryAttributes",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        params
-                )
-        ));
+        return Factory.createAttributeCollection(
+                requestApi("GetCategoryAttributes", params)
+        );
     }
 
     Collection<Category> getCategoryTree() throws SdkException {
-        return Factory.createCategoryCollection(Client.call(
-                new Request(
-                        "GetCategoryTree",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version
-                )
-        ));
+        return Factory.createCategoryCollection(requestApi("GetCategoryTree"));
     }
 
     void createProduct(List<Map> products) throws SdkException {
         Map<String, Object> body = new HashMap<>();
         body.put("Product", products);
 
-        Client.call(
-                new Request(
-                        "ProductCreate",
-                        SellerCenter.userId,
-                        SellerCenter.apiKey,
-                        SellerCenter.version,
-                        new HashMap<String, String>(),
-                        body
-                )
-        );
+        requestApi("ProductCreate", new HashMap<String, String>(), body);
     }
 }
