@@ -19,20 +19,25 @@ public final class OrderCollection implements Iterable<Order> {
      * @param response response from the API
      */
     OrderCollection(SuccessResponse response) throws ResponseDataException {
-        if (response.getBody().getJsonObject("Orders") == null
-                || response.getBody().getJsonObject("Orders").get("Order") == null) {
+        if (response.getBody().get("Orders") == null) {
             throw new ResponseDataException("Cannot create OrderCollection");
         }
 
-        JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
-        if (orders instanceof JsonArray) {
-            for (JsonValue order : (JsonArray) orders) {
-                if (order instanceof JsonObject) {
-                    this.orders.add(new Order((JsonObject) order));
-                }
+        if (response.getBody().get("Orders") instanceof JsonObject) {
+            if (response.getBody().getJsonObject("Orders").get("Order") == null) {
+                throw new ResponseDataException("Cannot create OrderCollection");
             }
-        } else if (orders instanceof JsonObject) {
-            this.orders.add(new Order((JsonObject) orders));
+
+            JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
+            if (orders instanceof JsonArray) {
+                for (JsonValue order : (JsonArray) orders) {
+                    if (order instanceof JsonObject) {
+                        this.orders.add(new Order((JsonObject) order));
+                    }
+                }
+            } else if (orders instanceof JsonObject) {
+                this.orders.add(new Order((JsonObject) orders));
+            }
         }
     }
 
