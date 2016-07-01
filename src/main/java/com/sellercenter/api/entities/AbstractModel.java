@@ -4,9 +4,6 @@ import com.sellercenter.api.core.utils.FormatAdapter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 abstract class AbstractModel {
@@ -70,25 +67,6 @@ abstract class AbstractModel {
         try {
             return Float.parseFloat(getString(key));
         } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Gets a date value of the given key
-     * Return null if no value exist for this key
-     * Or if value can't be a Date
-     *
-     * @param key the key whose associated value is to be returned
-     * @return the value to which the specified key is mapped as Date
-     */
-    public Date getDate(String key) {
-        if (getString(key) == null) {
-            return null;
-        }
-        try {
-            return new SimpleDateFormat().parse(getString(key));
-        } catch (ParseException e) {
             return null;
         }
     }
