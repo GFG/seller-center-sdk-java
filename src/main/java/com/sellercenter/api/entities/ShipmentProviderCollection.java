@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ShipmentProviderList implements Iterable<ShipmentProvider> {
+public class ShipmentProviderCollection implements Iterable<ShipmentProvider> {
     private final List<ShipmentProvider> shipmentProviders = new LinkedList<>();
 
-    ShipmentProviderList(SuccessResponse response) {
+    ShipmentProviderCollection(SuccessResponse response) {
         JsonObject body = response.getBody();
         JsonValue reason = body.getJsonObject("ShipmentProviders").get("ShipmentProvider");
         if (reason instanceof JsonObject) {

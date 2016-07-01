@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReasonList implements Iterable<Reason> {
+public class ReasonCollection implements Iterable<Reason> {
     private final List<Reason> reasons = new LinkedList<>();
 
-    ReasonList(SuccessResponse response) {
+    ReasonCollection(SuccessResponse response) {
         JsonObject body = response.getBody();
         JsonValue reason = body.getJsonObject("Reasons").get("Reason");
         if (reason instanceof JsonObject) {

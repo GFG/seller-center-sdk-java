@@ -2,7 +2,7 @@ package com.sellercenter.api.samples.endpoints.order;
 
 import com.sellercenter.api.entities.GetOrdersOptions;
 import com.sellercenter.api.entities.OrderItem;
-import com.sellercenter.api.entities.OrderItemList;
+import com.sellercenter.api.entities.OrderItemCollection;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
@@ -22,7 +22,7 @@ public class GetOrderItems {
         */
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
-        OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
+        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
          * Pretty print the response

@@ -1,7 +1,7 @@
 package com.sellercenter.api.samples.endpoints.order;
 
 import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemList;
+import com.sellercenter.api.entities.OrderItemCollection;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
@@ -23,7 +23,7 @@ public class SetStatusToShipped {
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
         // ... set other options
-        OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
+        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
          * Set status

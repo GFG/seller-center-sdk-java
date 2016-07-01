@@ -1,7 +1,7 @@
 package com.sellercenter.api.samples.endpoints.order;
 
 import com.sellercenter.api.entities.Reason;
-import com.sellercenter.api.entities.ReasonList;
+import com.sellercenter.api.entities.ReasonCollection;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
@@ -19,7 +19,7 @@ public class GetFailureReasons {
         /**
          * Get Reasons
          */
-        ReasonList reasons = SellerCenter.getFailureReasons();
+        ReasonCollection reasons = SellerCenter.getFailureReasons();
 
         /**
          * Pretty print the response

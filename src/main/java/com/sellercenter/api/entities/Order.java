@@ -54,7 +54,7 @@ public final class Order extends AbstractModel {
      * @return list of order items
      * @throws SdkException
      */
-    public OrderItemList getItems() throws SdkException {
+    public OrderItemCollection getItems() throws SdkException {
         return itemRepository.retrieve(this);
     }
 

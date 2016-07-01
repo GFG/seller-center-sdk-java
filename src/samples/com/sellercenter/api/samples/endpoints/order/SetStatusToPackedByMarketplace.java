@@ -1,8 +1,6 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemList;
-import com.sellercenter.api.entities.SellerCenter;
+import com.sellercenter.api.entities.*;
 import com.sellercenter.api.samples.Config;
 
 public class SetStatusToPackedByMarketplace {
@@ -23,13 +21,13 @@ public class SetStatusToPackedByMarketplace {
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
         // ... set other options
-        OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
+        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
 
 
         /**
          * Retrieve shipment providers
          */
-        ShipmentProviderList providers = SellerCenter.getShipmentProviders();
+        ShipmentProviderCollection providers = SellerCenter.getShipmentProviders();
         ShipmentProvider randomProvider = providers.iterator().next();
 
         /**

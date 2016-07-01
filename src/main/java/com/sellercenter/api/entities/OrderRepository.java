@@ -16,9 +16,9 @@ class OrderRepository extends AbstractRepository {
      * @return list of the customer details for a range of orders
      * @throws SdkException
      */
-    OrderList retrieve(GetOrdersOptions options) throws SdkException {
+    OrderCollection retrieve(GetOrdersOptions options) throws SdkException {
         SuccessResponse response = requestApi("GetOrders", options.toMap());
-        return new OrderList(response);
+        return new OrderCollection(response);
     }
 
     /**
@@ -35,13 +35,13 @@ class OrderRepository extends AbstractRepository {
         return new Order(response);
     }
 
-    ReasonList getFailureReasons() throws SdkException {
+    ReasonCollection getFailureReasons() throws SdkException {
         SuccessResponse response = requestApi("GetFailureReasons");
-        return new ReasonList(response);
+        return new ReasonCollection(response);
     }
 
-    ShipmentProviderList getShipmentProviders() throws SdkException {
+    ShipmentProviderCollection getShipmentProviders() throws SdkException {
         SuccessResponse response = requestApi("GetShipmentProviders");
-        return new ShipmentProviderList(response);
+        return new ShipmentProviderCollection(response);
     }
 }

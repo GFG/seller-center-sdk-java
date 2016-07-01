@@ -20,12 +20,12 @@ public class SetStatusToCanceled {
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
         // ... set other options
-        OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
+        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
          * retrieve failure reasons
          */
-        ReasonList reasons = SellerCenter.GetFailureReasons();
+        ReasonCollection reasons = SellerCenter.getFailureReasons();
         Reason randomReason = reasons.iterator().next();
 
         /**

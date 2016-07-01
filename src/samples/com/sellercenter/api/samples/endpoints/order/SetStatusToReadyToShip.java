@@ -21,12 +21,12 @@ public class SetStatusToReadyToShip {
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
         // ... set other options
-        OrderItemList items = SellerCenter.getOrders(opt).getAllItems();
+        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
 
         /**
          * Retrieve shipment providers
          */
-        ShipmentProviderList providers = SellerCenter.getShipmentProviders();
+        ShipmentProviderCollection providers = SellerCenter.getShipmentProviders();
         ShipmentProvider randomProvider = providers.iterator().next();
 
         /**

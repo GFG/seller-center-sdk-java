@@ -11,17 +11,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class OrderList implements Iterable<Order> {
+public final class OrderCollection implements Iterable<Order> {
     private List<Order> orders = new LinkedList<>();
     private OrderItemRepository itemRepository = new OrderItemRepository();
 
     /**
      * @param response response from the API
      */
-    OrderList(SuccessResponse response) throws ResponseDataException {
+    OrderCollection(SuccessResponse response) throws ResponseDataException {
         if (response.getBody().getJsonObject("Orders") == null
                 || response.getBody().getJsonObject("Orders").get("Order") == null) {
-            throw new ResponseDataException("Cannot create OrderList");
+            throw new ResponseDataException("Cannot create OrderCollection");
         }
 
         JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
@@ -42,7 +42,7 @@ public final class OrderList implements Iterable<Order> {
      * @return list of order items
      * @throws SdkException
      */
-    public OrderItemList getAllItems() throws SdkException {
+    public OrderItemCollection getAllItems() throws SdkException {
         return itemRepository.retrieve(this);
     }
 

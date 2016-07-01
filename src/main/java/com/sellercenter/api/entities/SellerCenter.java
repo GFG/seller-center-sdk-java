@@ -52,7 +52,7 @@ public final class SellerCenter {
      * @return list of the customer details for a range of orders
      * @throws SdkException
      */
-    public static OrderList getOrders(GetOrdersOptions options) throws SdkException {
+    public static OrderCollection getOrders(GetOrdersOptions options) throws SdkException {
         return orderRepository.retrieve(options);
     }
 
@@ -99,11 +99,11 @@ public final class SellerCenter {
         productRepository.createProduct(products);
     }
 
-    public static ReasonList getFailureReasons() throws SdkException {
+    public static ReasonCollection getFailureReasons() throws SdkException {
         return orderRepository.getFailureReasons();
     }
 
-    public static ShipmentProviderList getShipmentProviders() throws SdkException {
+    public static ShipmentProviderCollection getShipmentProviders() throws SdkException {
         return orderRepository.getShipmentProviders();
     }
 }

@@ -16,12 +16,12 @@ class OrderItemRepository extends AbstractRepository {
      * @return list of order items
      * @throws SdkException
      */
-    OrderItemList retrieve(OrderList orders) throws SdkException {
+    OrderItemCollection retrieve(OrderCollection orders) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderIdList", Helper.toParam(orders.getIds()));
         SuccessResponse response = requestApi("GetMultipleOrderItems", params);
 
-        return new OrderItemList(response);
+        return new OrderItemCollection(response);
     }
 
     /**
@@ -31,12 +31,12 @@ class OrderItemRepository extends AbstractRepository {
      * @return list of order items
      * @throws SdkException
      */
-    OrderItemList retrieve(Order order) throws SdkException {
+    OrderItemCollection retrieve(Order order) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderId", order.getId());
         SuccessResponse response = requestApi("GetOrderItems", params);
 
-        return new OrderItemList(response);
+        return new OrderItemCollection(response);
     }
 
     /**
@@ -47,7 +47,7 @@ class OrderItemRepository extends AbstractRepository {
      * @return an order-related document
      * @throws SdkException
      */
-    Document getDocument(OrderItemList items, String documentType) throws SdkException {
+    Document getDocument(OrderItemCollection items, String documentType) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
         params.put("DocumentType", documentType);
@@ -61,7 +61,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToReadyToShip(OrderItemList items, ReadyToShipOptions opt) throws SdkException {
+    void setStatusToReadyToShip(OrderItemCollection items, ReadyToShipOptions opt) throws SdkException {
         Map<String, String> params = opt.toMap();
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
         requestApi("SetStatusToReadyToShip", params);
@@ -71,7 +71,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToPackedByMarketplace(OrderItemList items, PackedByMarketPlaceOptions opt) throws SdkException {
+    void setStatusToPackedByMarketplace(OrderItemCollection items, PackedByMarketPlaceOptions opt) throws SdkException {
         Map<String, String> params = opt.toMap();
         params.put("OrderItemIds", Helper.toParam(items.getIds()));
         requestApi("SetStatusToPackedByMarketplace", params);
@@ -83,7 +83,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param details      additional explaining message
      * @throws SdkException
      */
-    void setStatusToFailedDelivery(OrderItemList items, Reason reason, String details) throws SdkException {
+    void setStatusToFailedDelivery(OrderItemCollection items, Reason reason, String details) throws SdkException {
         for (OrderItem item : items) {
             setStatusToFailedDelivery(item, reason, details);
         }
@@ -110,7 +110,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param details      additional explaining message
      * @throws SdkException
      */
-    void setStatusToCanceled(OrderItemList items, Reason reason, String details) throws SdkException {
+    void setStatusToCanceled(OrderItemCollection items, Reason reason, String details) throws SdkException {
         for (OrderItem item : items) {
             setStatusToCanceled(item, reason, details);
         }
@@ -136,7 +136,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToDelivered(OrderItemList items) throws SdkException {
+    void setStatusToDelivered(OrderItemCollection items) throws SdkException {
         for (OrderItem item : items) {
             setStatusToDelivered(item);
         }
@@ -157,7 +157,7 @@ class OrderItemRepository extends AbstractRepository {
      * @param items List of oder items to be marked
      * @throws SdkException
      */
-    void setStatusToShipped(OrderItemList items) throws SdkException {
+    void setStatusToShipped(OrderItemCollection items) throws SdkException {
         for (OrderItem item : items) {
             setStatusToShipped(item);
         }
