@@ -114,24 +114,12 @@ public final class OrderItem extends AbstractModel {
         return getString("PackageId");
     }
 
-    public Date getPromisedShippingTimes() {
-        return getDate("PromisedShippingTimes");
-    }
-
     public String getShippingProviderType() {
         return getString("ShippingProviderType");
     }
 
     public String getExtraAttributes() {
         return getString("ExtraAttributes");
-    }
-
-    public Date getCreatedAt() {
-        return getDate("CreatedAt");
-    }
-
-    public Date getUpdatedAt() {
-        return getDate("UpdatedAt");
     }
 
 }

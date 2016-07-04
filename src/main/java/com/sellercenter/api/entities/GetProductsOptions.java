@@ -111,13 +111,15 @@ public final class GetProductsOptions {
      * @param skuList list of searched sku
      * @return the calling instance for chaining.
      */
-    public GetProductsOptions setSkuList(List<String> skuList) {
-        this.skuList = skuList;
+    public GetProductsOptions setSkuList(Collection<String> skuList) {
+        skuList.clear();
+        this.skuList.addAll(skuList);
         return this;
     }
 
     /**
      * Limits to products whose SKU are added
+     * The list set by setSkuList will not be erased prior to addition
      *
      * @param sku one of the searched sku
      * @return the calling instance for chaining.

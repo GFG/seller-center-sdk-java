@@ -5,6 +5,10 @@ import com.sellercenter.api.core.request.Request;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.exceptions.SdkException;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Interface responsible to gather generic calls (not related to a special entity)
  * and configuration (dynamic)
@@ -73,7 +77,25 @@ public final class SellerCenter {
      * @return list of all or a range of products
      * @throws SdkException
      */
-    public static ProductList getProducts(GetProductsOptions options) throws SdkException {
+    public static ProductCollection getProducts(GetProductsOptions options) throws SdkException {
         return productRepository.retrieve(options);
+    }
+
+    /**
+     *
+     * @return
+     * @throws SdkException
+     */
+    public static Collection<Category> getCategoryTree() throws SdkException {
+        return productRepository.getCategoryTree();
+    }
+
+    /**
+     *
+     * @param products
+     * @throws SdkException
+     */
+    public static void createProduct(List<Map> products) throws SdkException {
+        productRepository.createProduct(products);
     }
 }
