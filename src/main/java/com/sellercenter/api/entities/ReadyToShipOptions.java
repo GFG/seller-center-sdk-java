@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ReadyToShipOptions {
 
@@ -23,7 +24,7 @@ public class ReadyToShipOptions {
      * @throws SdkException
      */
     public ReadyToShipOptions setDeliveryType(String type) throws SdkException {
-        if (deliveryType.equals(DROP_SHIP)) {
+        if (!Objects.equals(deliveryType, DROP_SHIP)) {
             throw new SdkException("Please use setToDropShipping method instead of setDeliveryType for Dropshipping");
         }
         deliveryType = type;
