@@ -11,28 +11,33 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class OrderList implements Iterable<Order> {
+public final class OrderCollection implements Iterable<Order> {
     private List<Order> orders = new LinkedList<>();
     private OrderItemRepository itemRepository = new OrderItemRepository();
 
     /**
      * @param response response from the API
      */
-    OrderList(SuccessResponse response) throws ResponseDataException {
-        if (response.getBody().getJsonObject("Orders") == null
-                || response.getBody().getJsonObject("Orders").get("Order") == null) {
-            throw new ResponseDataException("Cannot create OrderList");
+    OrderCollection(SuccessResponse response) throws ResponseDataException {
+        if (response.getBody().get("Orders") == null) {
+            throw new ResponseDataException("Cannot create OrderCollection");
         }
 
-        JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
-        if (orders instanceof JsonArray) {
-            for (JsonValue order : (JsonArray) orders) {
-                if (order instanceof JsonObject) {
-                    this.orders.add(new Order((JsonObject) order));
-                }
+        if (response.getBody().get("Orders") instanceof JsonObject) {
+            if (response.getBody().getJsonObject("Orders").get("Order") == null) {
+                throw new ResponseDataException("Cannot create OrderCollection");
             }
-        } else if (orders instanceof JsonObject) {
-            this.orders.add(new Order((JsonObject) orders));
+
+            JsonValue orders = response.getBody().getJsonObject("Orders").get("Order");
+            if (orders instanceof JsonArray) {
+                for (JsonValue order : (JsonArray) orders) {
+                    if (order instanceof JsonObject) {
+                        this.orders.add(new Order((JsonObject) order));
+                    }
+                }
+            } else if (orders instanceof JsonObject) {
+                this.orders.add(new Order((JsonObject) orders));
+            }
         }
     }
 
@@ -42,7 +47,7 @@ public final class OrderList implements Iterable<Order> {
      * @return list of order items
      * @throws SdkException
      */
-    public OrderItemList getAllItems() throws SdkException {
+    public OrderItemCollection getAllItems() throws SdkException {
         return itemRepository.retrieve(this);
     }
 
@@ -63,7 +68,7 @@ public final class OrderList implements Iterable<Order> {
     List<String> getIds() {
         List<String> ids = new LinkedList<>();
         for (Order o : orders) {
-            ids.add(o.getOrderId());
+            ids.add(o.getId());
         }
         return ids;
     }

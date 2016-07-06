@@ -52,7 +52,7 @@ public final class SellerCenter {
      * @return list of the customer details for a range of orders
      * @throws SdkException
      */
-    public static OrderList getOrders(GetOrdersOptions options) throws SdkException {
+    public static OrderCollection getOrders(GetOrdersOptions options) throws SdkException {
         return orderRepository.retrieve(options);
     }
 
@@ -97,5 +97,26 @@ public final class SellerCenter {
      */
     public static void createProduct(List<Map> products) throws SdkException {
         productRepository.createProduct(products);
+    }
+
+
+    /**
+     * Returns additional error context for SetToCancelled and SetToFailedDelivery
+     *
+     * @return A collection of reasons to provide
+     * @throws SdkException
+     */
+    public static ReasonCollection getFailureReasons() throws SdkException {
+        return orderRepository.getFailureReasons();
+    }
+
+    /**
+     * Returns a list of all active shipping providers for SetStatusToShipped.
+     *
+     * @return A collection of providers
+     * @throws SdkException
+     */
+    public static ShipmentProviderCollection getShipmentProviders() throws SdkException {
+        return orderRepository.getShipmentProviders();
     }
 }

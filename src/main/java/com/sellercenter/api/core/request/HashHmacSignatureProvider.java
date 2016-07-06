@@ -70,7 +70,15 @@ final class HashHmacSignatureProvider implements SignatureProvider {
             Mac mac = Mac.getInstance(HMAC_HASH_ALGORITHM);
             mac.init(key);
             final byte[] rawHmac = mac.doFinal(msg.getBytes());
-            digest = String.format("%x", new BigInteger(1, rawHmac));
+            StringBuilder hash = new StringBuilder();
+            for (int i = 0; i < rawHmac.length; i++) {
+                String hex = Integer.toHexString(0xFF & rawHmac[i]);
+                if (hex.length() == 1) {
+                    hash.append('0');
+                }
+                hash.append(hex);
+            }
+            digest = hash.toString();
         } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new SdkException("Error while signing request : " + e.getMessage());
         }

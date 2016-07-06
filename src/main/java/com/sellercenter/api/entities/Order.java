@@ -54,7 +54,7 @@ public final class Order extends AbstractModel {
      * @return list of order items
      * @throws SdkException
      */
-    public OrderItemList getItems() throws SdkException {
+    public OrderItemCollection getItems() throws SdkException {
         return itemRepository.retrieve(this);
     }
 
@@ -62,56 +62,8 @@ public final class Order extends AbstractModel {
      * ATTRIBUTES GETTERS AND SETTERS
      */
 
-    public String getOrderId() {
+    public String getId() {
         return getString("OrderId");
-    }
-
-    public String getCustomerFirstName() {
-        return getString("CustomerFirstName");
-    }
-
-    public String getCustomerLastName() {
-        return getString("CustomerLastName");
-    }
-
-    public String getOrderNumber() {
-        return getString("OrderNumber");
-    }
-
-    public String getPaymentMethod() {
-        return getString("PaymentMethod");
-    }
-
-    public String getRemarks() {
-        return getString("Remarks");
-    }
-
-    public String getDeliveryInfo() {
-        return getString("DeliveryInfo");
-    }
-
-    public String getPrice() {
-        return getString("Price");
-    }
-
-    public String getGiftOption() {
-        return getString("GiftOption");
-    }
-
-    public String getGiftMessage() {
-        return getString("GiftMessage");
-    }
-
-    public String getVoucherCode() {
-        return getString("VoucherCode");
-    }
-
-    public String getCreatedAt() {
-        return getString("CreatedAt");
-    }
-
-    public String getUpdatedAt() {
-        return getString("UpdatedAt");
     }
 
     public Address getAddressBilling() {
@@ -120,18 +72,6 @@ public final class Order extends AbstractModel {
 
     public Address getAddressShipping() {
         return addressShipping;
-    }
-
-    public String getNationalRegistrationNumber() {
-        return getString("NationalRegistrationNumber");
-    }
-
-    public String getItemsCount() {
-        return getString("ItemsCount");
-    }
-
-    public String getExtraAttributes() {
-        return getString("ExtraAttributes");
     }
 
 }

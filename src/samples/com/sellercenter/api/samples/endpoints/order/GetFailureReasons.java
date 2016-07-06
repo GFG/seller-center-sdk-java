@@ -1,13 +1,11 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.Document;
-import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemCollection;
+import com.sellercenter.api.entities.Reason;
+import com.sellercenter.api.entities.ReasonCollection;
 import com.sellercenter.api.entities.SellerCenter;
 import com.sellercenter.api.samples.Config;
 
-public class GetDocument {
-
+public class GetFailureReasons {
     public static void main(String[] args)
             throws Exception {
 
@@ -19,13 +17,9 @@ public class GetDocument {
         SellerCenter.url = Config.url;
 
         /**
-         * Perform the API call
+         * Get Reasons
          */
-        GetOrdersOptions opt = new GetOrdersOptions();
-        opt.setLimit(1);
-        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
-        Document doc = items.getDocument("ShippingParcel");
-
+        ReasonCollection reasons = SellerCenter.getFailureReasons();
 
         /**
          * Pretty print the response
@@ -33,7 +27,13 @@ public class GetDocument {
         System.out.println("Success !");
 
         System.out.println();
-        System.out.println("Document: " + doc.getFile());
+        System.out.println("Reasons: ");
         System.out.println();
+        for (Reason reason : reasons) {
+            System.out.println("    Reason:");
+            System.out.println("    |   Name:  " + reason.getString("Name"));
+            System.out.println("    |   Type:  " + reason.getString("Type"));
+            System.out.println();
+        }
     }
 }

@@ -1,12 +1,11 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.Document;
-import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemCollection;
 import com.sellercenter.api.entities.SellerCenter;
+import com.sellercenter.api.entities.ShipmentProvider;
+import com.sellercenter.api.entities.ShipmentProviderCollection;
 import com.sellercenter.api.samples.Config;
 
-public class GetDocument {
+public class GetShipmentProviders {
 
     public static void main(String[] args)
             throws Exception {
@@ -19,13 +18,9 @@ public class GetDocument {
         SellerCenter.url = Config.url;
 
         /**
-         * Perform the API call
+         * Get Reasons
          */
-        GetOrdersOptions opt = new GetOrdersOptions();
-        opt.setLimit(1);
-        OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
-        Document doc = items.getDocument("ShippingParcel");
-
+        ShipmentProviderCollection providers = SellerCenter.getShipmentProviders();
 
         /**
          * Pretty print the response
@@ -33,7 +28,12 @@ public class GetDocument {
         System.out.println("Success !");
 
         System.out.println();
-        System.out.println("Document: " + doc.getFile());
+        System.out.println("Shipment Providers: ");
         System.out.println();
+        for (ShipmentProvider provider : providers) {
+            System.out.println("Provider :  " + provider.getString("Name"));
+            System.out.println(provider.toString());
+            System.out.println();
+        }
     }
 }

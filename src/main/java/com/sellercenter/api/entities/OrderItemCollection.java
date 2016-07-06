@@ -12,14 +12,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class OrderItemList implements Iterable<OrderItem> {
+public final class OrderItemCollection implements Iterable<OrderItem> {
     private List<OrderItem> items = new ArrayList<>();
     private OrderItemRepository repository = new OrderItemRepository();
 
     /**
      * @param response api response to GetOrderItems or GetMultipleOrderItems
      */
-    OrderItemList(SuccessResponse response) throws SdkException {
+    OrderItemCollection(SuccessResponse response) throws SdkException {
 
         JsonObject body = response.getBody();
 
@@ -48,7 +48,7 @@ public final class OrderItemList implements Iterable<OrderItem> {
     private void extractItems(JsonObject container) throws SdkException {
         if (container.getJsonObject("OrderItems") == null
                 || container.getJsonObject("OrderItems").get("OrderItem") == null) {
-            throw new ResponseDataException("Cannot create OrderItemList");
+            throw new ResponseDataException("Cannot create OrderItemCollection");
         }
         JsonValue orderItem = container.getJsonObject("OrderItems").get("OrderItem");
         if (orderItem instanceof JsonObject) {
@@ -74,31 +74,31 @@ public final class OrderItemList implements Iterable<OrderItem> {
     /**
      * @throws SdkException
      */
-    public void setStatusToPackedByMarketplace() throws SdkException {
-        repository.setStatusToPackedByMarketplace(this);
+    public void setStatusToPackedByMarketplace(PackedByMarketPlaceOptions options) throws SdkException {
+        repository.setStatusToPackedByMarketplace(this, options);
     }
 
     /**
      * @throws SdkException
      */
-    public void setStatusToReadyToShip() throws SdkException {
-        repository.setStatusToReadyToShip(this);
+    public void setStatusToReadyToShip(ReadyToShipOptions options) throws SdkException {
+        repository.setStatusToReadyToShip(this, options);
     }
 
     /**
      * @throws SdkException
      */
-    public void setStatusToFailedDelivery() throws SdkException {
-        repository.setStatusToFailedDelivery(this);
+    public void setStatusToFailedDelivery(Reason reason, String details) throws SdkException {
+        repository.setStatusToFailedDelivery(this, reason, details);
     }
 
     /**
      * @param reason       error context as returned by GetFailureReasons
-     * @param reasonDetail additional explaining message
+     * @param details additional explaining message
      * @throws SdkException
      */
-    public void setStatusToCanceled(String reason, String reasonDetail) throws SdkException {
-        repository.setStatusToCanceled(this, reason, reasonDetail);
+    public void setStatusToCanceled(Reason reason, String details) throws SdkException {
+        repository.setStatusToCanceled(this, reason, details);
     }
 
     /**

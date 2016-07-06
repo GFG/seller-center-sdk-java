@@ -1,14 +1,12 @@
 package com.sellercenter.api.entities;
 
-import com.sellercenter.api.core.Client;
-import com.sellercenter.api.core.request.Request;
 import com.sellercenter.api.core.response.SuccessResponse;
 import com.sellercenter.api.exceptions.SdkException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class OrderRepository {
+class OrderRepository extends AbstractRepository {
 
     /**
      * Perform api call to get a list of orders
@@ -18,11 +16,9 @@ class OrderRepository {
      * @return list of the customer details for a range of orders
      * @throws SdkException
      */
-    OrderList retrieve(GetOrdersOptions options) throws SdkException {
-        SuccessResponse response = Client.call(
-                new Request("GetOrders", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, options.toMap())
-        );
-        return new OrderList(response);
+    OrderCollection retrieve(GetOrdersOptions options) throws SdkException {
+        SuccessResponse response = requestApi("GetOrders", options.toMap());
+        return new OrderCollection(response);
     }
 
     /**
@@ -34,10 +30,18 @@ class OrderRepository {
     Order retrieve(String id) throws SdkException {
         Map<String, String> params = new HashMap<>();
         params.put("OrderId", id);
-        SuccessResponse response = Client.call(
-                new Request("GetOrder", SellerCenter.userId, SellerCenter.apiKey, SellerCenter.version, params)
-        );
+        SuccessResponse response = requestApi("GetOrder", params);
 
         return new Order(response);
+    }
+
+    ReasonCollection getFailureReasons() throws SdkException {
+        SuccessResponse response = requestApi("GetFailureReasons");
+        return new ReasonCollection(response);
+    }
+
+    ShipmentProviderCollection getShipmentProviders() throws SdkException {
+        SuccessResponse response = requestApi("GetShipmentProviders");
+        return new ShipmentProviderCollection(response);
     }
 }

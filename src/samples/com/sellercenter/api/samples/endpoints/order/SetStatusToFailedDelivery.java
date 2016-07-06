@@ -1,12 +1,9 @@
 package com.sellercenter.api.samples.endpoints.order;
 
-import com.sellercenter.api.entities.Document;
-import com.sellercenter.api.entities.GetOrdersOptions;
-import com.sellercenter.api.entities.OrderItemCollection;
-import com.sellercenter.api.entities.SellerCenter;
+import com.sellercenter.api.entities.*;
 import com.sellercenter.api.samples.Config;
 
-public class GetDocument {
+public class SetStatusToFailedDelivery {
 
     public static void main(String[] args)
             throws Exception {
@@ -19,21 +16,22 @@ public class GetDocument {
         SellerCenter.url = Config.url;
 
         /**
-         * Perform the API call
+         * Retrieve items
          */
         GetOrdersOptions opt = new GetOrdersOptions();
         opt.setLimit(1);
+        // ... set other options
         OrderItemCollection items = SellerCenter.getOrders(opt).getAllItems();
-        Document doc = items.getDocument("ShippingParcel");
-
 
         /**
-         * Pretty print the response
+         * retrieve failure reasons
          */
-        System.out.println("Success !");
+        ReasonCollection reasons = SellerCenter.getFailureReasons();
+        Reason randomReason = reasons.iterator().next();
 
-        System.out.println();
-        System.out.println("Document: " + doc.getFile());
-        System.out.println();
+        /**
+         * Set status
+         */
+        items.setStatusToFailedDelivery(randomReason, "I have my reasons to give you that reason");
     }
 }

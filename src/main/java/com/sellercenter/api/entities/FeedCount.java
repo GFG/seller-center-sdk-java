@@ -12,25 +12,4 @@ public final class FeedCount extends AbstractModel {
     FeedCount(SuccessResponse response) {
         super(response.getBody().getJsonObject("FeedCount"));
     }
-
-    public int getFinished() {
-        return getInt("Finished");
-    }
-
-    public int getTotal() {
-        return getInt("Total");
-    }
-
-    public int getQueued() {
-        return getInt("Queued");
-    }
-
-    public int getCanceled() {
-        return getInt("Canceled");
-    }
-
-    public int getProcessing() {
-        return getInt("Processing");
-    }
-
 }
