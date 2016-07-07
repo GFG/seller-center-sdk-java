@@ -1,0 +1,63 @@
+group 'de.rocketlabs'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'com.esotericsoftware.yamlbeans', name: 'yamlbeans', version: '1.09'
+    compile group: 'com.google.inject', name: 'guice', version: '4.0'
+
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20160212'
+    // https://mvnrepository.com/artifact/org.glassfish/javax.json
+    compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+    // https://mvnrepository.com/artifact/com.jcabi/jcabi-http
+    compile group: 'com.jcabi', name: 'jcabi-http', version: '1.16'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+
+}
+
+//noinspection GroovyAssignabilityCheck
+sourceSets {
+    main {
+        output.resourcesDir = "build/classes/main"
+    }
+
+    samples {
+
+    }
+
+
+    test {
+        output.resourcesDir = "build/classes/test"
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
