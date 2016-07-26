@@ -1,5 +1,5 @@
-group 'de.rocketlabs'
-version '1.0-SNAPSHOT'
+group 'com.rocket-labs'
+version '0.2.0'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -25,6 +25,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
     testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 
+    runtime group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    runtime group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.3'
+    runtime group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3'
+    runtime group: 'com.sun.jersey', name: 'jersey-client', version: '1.19'
+    runtime group: 'org.aspectj', name: 'aspectjrt', version: '1.8.7'
+    runtime group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
+    runtime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.5'
 }
 
 //noinspection GroovyAssignabilityCheck
@@ -40,6 +47,51 @@ sourceSets {
 
     test {
         output.resourcesDir = "build/classes/test"
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Sellercenter API SDK'
+                packaging 'jar'
+                artifactId 'sellercenterapi'
+                description 'SellerCenter Marketplace API developer hub for Java'
+                url 'https://sellerapi.sellercenter.net/'
+
+                scm {
+                    connection 'scm:git:git://github.com:rocket-internet-berlin/SellerCenterSDK-Java.git'
+                    developerConnection 'scm:git:git@github.com:rocket-internet-berlin/SellerCenterSDK-Java.git'
+                    url 'https://github.com/rocket-internet-berlin/SellerCenterSDK-Java'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'reyr'
+                        name 'Remy Rey'
+                        email 'remy.rey@rocket-internet.com'
+                    }
+                }
+            }
+        }
     }
 }
 
