@@ -21,9 +21,9 @@ You will need to copy the followings :
     - API url
 
 ```
-SellerCenter.apiKey = "11bbf504d7bb6a5e9c30baa9f0908e3b9ee5f514";
-SellerCenter.userId = "remy.rey@rocket-internet.com";
-SellerCenter.url = "https://rocket:rock4me@sellercenter-api-lazada-th.sellercenter.net/";
+SellerCenter.apiKey = "1fbe9c3b05a04d791bb09ee5baa08e39f6145f5b";
+SellerCenter.userId = "user.name@sellercenter.com";
+SellerCenter.url = "https://api.sellercenter.net/";
 ```
 
 3. Try out the samples ! You will find them in [**src/samples**](https://github.com/rocket-internet-berlin/SellerCenterSDK-Java/tree/introduce_skd/src/samples) folder.
