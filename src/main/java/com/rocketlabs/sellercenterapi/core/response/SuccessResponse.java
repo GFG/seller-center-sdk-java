@@ -39,4 +39,20 @@ public class SuccessResponse extends AbstractResponse {
     public String getResponseType() {
         return responseType;
     }
+
+    /**
+     * Mockito needs it to run properly
+     */
+    @Override
+    public JsonObject getBody() {
+        return super.getBody();
+    }
+
+    /**
+     * Mockito needs it to run properly
+     */
+    @Override
+    public String getRequestAction() {
+        return super.getRequestAction();
+    }
 }

@@ -34,22 +34,6 @@ dependencies {
     runtime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.5'
 }
 
-//noinspection GroovyAssignabilityCheck
-sourceSets {
-    main {
-        output.resourcesDir = "build/classes/main"
-    }
-
-    samples {
-
-    }
-
-
-    test {
-        output.resourcesDir = "build/classes/test"
-    }
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -66,12 +50,11 @@ uploadArchives {
             pom.project {
                 name 'Sellercenter API SDK'
                 packaging 'jar'
-                artifactId 'sellercenterapi'
                 description 'SellerCenter Marketplace API developer hub for Java'
                 url 'https://sellerapi.sellercenter.net/'
 
                 scm {
-                    connection 'scm:git:git://github.com:rocket-internet-berlin/SellerCenterSDK-Java.git'
+                    connection 'scm:git:https://github.com/rocket-internet-berlin/SellerCenterSDK-Java.git'
                     developerConnection 'scm:git:git@github.com:rocket-internet-berlin/SellerCenterSDK-Java.git'
                     url 'https://github.com/rocket-internet-berlin/SellerCenterSDK-Java'
                 }
@@ -92,6 +75,12 @@ uploadArchives {
                 }
             }
         }
+    }
+}
+
+sourceSets {
+    samples {
+        compileClasspath += sourceSets.main.runtimeClasspath
     }
 }
 
