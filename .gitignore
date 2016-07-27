@@ -1,0 +1,10 @@
+# Intellij IDEA
+.idea/*
+SellerCenter.SDK.iml
+target/*
+
+# Gradle
+.gradle
+gradle.properties
+build
+
