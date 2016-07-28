@@ -1,0 +1,104 @@
+group 'com.rocket-labs'
+version '0.2.0'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'com.esotericsoftware.yamlbeans', name: 'yamlbeans', version: '1.09'
+    compile group: 'com.google.inject', name: 'guice', version: '4.0'
+
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20160212'
+    // https://mvnrepository.com/artifact/org.glassfish/javax.json
+    compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+    // https://mvnrepository.com/artifact/com.jcabi/jcabi-http
+    compile group: 'com.jcabi', name: 'jcabi-http', version: '1.16'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+
+    runtime group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    runtime group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.3'
+    runtime group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3'
+    runtime group: 'com.sun.jersey', name: 'jersey-client', version: '1.19'
+    runtime group: 'org.aspectj', name: 'aspectjrt', version: '1.8.7'
+    runtime group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
+    runtime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.5'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Sellercenter API SDK'
+                packaging 'jar'
+                description 'SellerCenter Marketplace API developer hub for Java'
+                url 'https://sellerapi.sellercenter.net/'
+
+                scm {
+                    connection 'scm:git:https://github.com/rocket-internet-berlin/SellerCenterSDK-Java.git'
+                    developerConnection 'scm:git:git@github.com:rocket-internet-berlin/SellerCenterSDK-Java.git'
+                    url 'https://github.com/rocket-internet-berlin/SellerCenterSDK-Java'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'reyr'
+                        name 'Remy Rey'
+                        email 'remy.rey@rocket-internet.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+sourceSets {
+    samples {
+        compileClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+

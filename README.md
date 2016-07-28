@@ -2,20 +2,31 @@
 
 ## Download
 
+Our releases are available on Maven Central repository. You will find the jar files, the javadoc and all the dependencies.
+
 ### Maven
-Simply add the following dependency to your pom.xml :
+Simply add the following dependency to your *pom.xml*:
 
-*coming soon...*
+```
+<dependency>
+    <groupId>com.rocket-labs</groupId>
+    <artifactId>sellercenterapi</artifactId>
+    <version>0.2.0</version>
+</dependency>
+```
 
-### Jar file
-*coming soon...*
+### Gradle
+Add the following to your *build.gradle*:
+```
+compile 'com.rocket-labs:sellercenterapi:0.2.0'
+```
 
 ## Get started
 
 1. You can retrieve every information required on Seller Center in Product > API Reference > API Explorer.
 
 2. Then you can set those variables at runtime as shown in the samples.
-You will need to copy the followings :
+You will need to copy the followings:
     - UserID
     - API Key
     - API url
@@ -36,11 +47,11 @@ First you have to retrieve resources from Seller Center by calling methods of th
 OrderList orders = SellerCenter.getOrders(new GetOrdersOptions());
 ```
 
-Then you can use methods of the resources to get more resources :
+Then you can use methods of the resources to get more resources:
 ```
 OrderItemList items = orders.getAllItems
 ```
-... or to interact with Seller Center :
+... or to interact with Seller Center:
 ```
 items.setStatusToReadyToShip();
 ```
@@ -50,12 +61,3 @@ items.setStatusToReadyToShip();
 
 Visit our [**documentation**](https://sellercenter.readme.io/).
 You will find for each calls more details about the parameters you need to provide.
-
-## Developer Setup
-
-### Intellij IDEA with Maven
-
-1. Open the project folder
-2. Import the project from the pom.xml
-3. Set **src/main/java**, **src/samples** as source folders and **src/test/java** as test folder
-4. Build and run !
