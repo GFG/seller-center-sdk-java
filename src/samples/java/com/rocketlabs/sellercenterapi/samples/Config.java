@@ -4,17 +4,17 @@ public class Config {
     /**
      * The URL of the Seller Center API
      */
-    public static String url = "https://api.sellercenter.net/";
+    public static String url = "https://api-url-of-the-desired-sellercenter/";
 
     /**
      * The API key of the User
      */
-    public static String apiKey = "11bbf504d7bd6a5e9c34baa9f0908e3b9ee5f514";
+    public static String apiKey = "Put your api key here !";
 
     /**
      * The ID of the User
      */
-    public static String userId = "look@me.com";
+    public static String userId = "user.name@sellercenter.com";
 
     /**
      * The version of the API

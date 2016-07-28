@@ -23,7 +23,7 @@ compile 'com.rocket-labs:sellercenterapi:0.2.0'
 
 ## Get started
 
-1. You can retrieve every information required on Seller Center in Product > API Reference > API Explorer.
+1. You can retrieve every information required on Seller Center in **Settings > Integration management > API Explorer**.
 
 2. Then you can set those variables at runtime as shown in the samples.
 You will need to copy the followings:
@@ -32,12 +32,12 @@ You will need to copy the followings:
     - API url
 
 ```
-SellerCenter.apiKey = "1fbe9c3b05a04d791bb09ee5baa08e39f6145f5b";
+SellerCenter.apiKey = "Put your api key here !";
 SellerCenter.userId = "user.name@sellercenter.com";
-SellerCenter.url = "https://api.sellercenter.net/";
+SellerCenter.url = "https://api-url-of-the-desired-sellercenter/";
 ```
 
-3. Try out the samples ! You will find them in [**src/samples**](https://github.com/rocket-internet-berlin/SellerCenterSDK-Java/tree/introduce_skd/src/samples) folder.
+3. Try out the samples ! You will find them in [**src/samples**](https://github.com/rocket-internet-berlin/SellerCenterSDK-Java/tree/master/src/samples/java/com/rocketlabs/sellercenterapi/samples/endpoints) folder.
 
 ## How does it works ?
 
@@ -61,3 +61,5 @@ items.setStatusToReadyToShip();
 
 Visit our [**documentation**](https://sellercenter.readme.io/).
 You will find for each calls more details about the parameters you need to provide.
+
+You can also find all endpoints in the API explorer (**Settings > Integration management > API Explorer**)
